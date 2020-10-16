@@ -3,5 +3,6 @@
         { "directory": "./src/renderer", "changeProcessCWD": true },
         { "directory": "./src/main", "changeProcessCWD": true }
     ],
-    "scss.validate": false
+    "scss.validate": false,
+    "editor.tabSize": 2
 }

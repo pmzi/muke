@@ -1,10 +1,12 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import Router from './Router';
 
 function App() {
   return (
-    <div>
-      Hello World
-    </div>
+    <MemoryRouter>
+      <Router />
+    </MemoryRouter>
   );
 }
 
