@@ -3,23 +3,15 @@ import React from 'react';
 import {
   Route,
   Switch,
-  MemoryRouter,
-  Redirect,
 } from 'react-router-dom';
 
-import Auth from './Auth';
-
-function RedirectLogin() {
-  return <Redirect to="/auth/login" />;
-}
+import Workspace from './Workspace';
 
 export default function Router() {
   return (
-    <MemoryRouter>
-      <Switch>
-        <Route path="/auth" component={Auth} />
-        <Route component={RedirectLogin} />
-      </Switch>
-    </MemoryRouter>
+    <Switch>
+      <Route path="/workspace/:workspace" component={Workspace} />
+      <Route component={() => <div>Nothing to show</div>} />
+    </Switch>
   );
 }

@@ -11,10 +11,19 @@ module.exports = {
     './src/**/*.jsx',
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        layout: 'minmax(0, max-content) 1fr',
+        workspace: '10rem 1fr',
+      },
+      gridTemplateRows: {
+        layout: '1fr 3rem',
+        workspace: '5rem 1fr',
+      },
+    },
   },
   corePlugins: {
-    preflight: false,
+    preflight: true,
   },
   variants: {},
   plugins: [],
