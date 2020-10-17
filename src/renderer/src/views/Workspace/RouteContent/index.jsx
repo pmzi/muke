@@ -5,11 +5,11 @@ import RouteSettings from './RouteSettings';
 
 export default function RouteContent() {
   return (
-    <div className="flex flex-col">
-      <div className="flex-grow p-6">
+    <div className="flex flex-col overflow-hidden h-full">
+      <div className="p-6">
         <RouteMeta />
       </div>
-      <div className="flex-grow-2 border-t border-gray-500">
+      <div className="flex-grow border-t border-gray-500 overflow-auto">
         <RouteSettings />
       </div>
     </div>

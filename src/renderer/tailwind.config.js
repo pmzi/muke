@@ -17,8 +17,8 @@ module.exports = {
         workspace: '20rem 1fr',
       },
       gridTemplateRows: {
-        layout: '1fr 3rem',
-        workspace: '5rem 1fr',
+        layout: 'minmax(0, 1fr) 3rem',
+        workspace: '5rem minmax(0, 1fr)',
       },
     },
   },
