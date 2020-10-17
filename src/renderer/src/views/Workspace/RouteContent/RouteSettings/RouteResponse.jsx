@@ -4,17 +4,32 @@ import { Button } from 'antd';
 import { ClearOutlined, LoadingOutlined } from '@ant-design/icons';
 
 import {
-  DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES,
+  DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES, THEME_STORAGE_KEY,
 } from '@common/constants/editor';
+import { write, read } from '@services/storage';
 
 import RouteResponseLanguageSelector from './RouteResponseLanguageSelector';
 
+function persistTheme(theme) {
+  write(THEME_STORAGE_KEY, theme);
+}
+
+function getPersistedTheme() {
+  return read(THEME_STORAGE_KEY);
+}
+
+const INITIAL_THEME = getPersistedTheme() || DEFAULT_THEME;
+
 export default function RouteResponse() {
   const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
-  const [currentTheme, setCurrentTheme] = useState(DEFAULT_THEME);
+  const [currentTheme, setCurrentTheme] = useState(INITIAL_THEME);
 
   function toggleCurrentTheme() {
-    setCurrentTheme(currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT);
+    const theme = currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+
+    setCurrentTheme(theme);
+
+    persistTheme(theme);
   }
 
   return (
@@ -31,6 +46,7 @@ export default function RouteResponse() {
 
       <footer className="flex items-center justify-between bg-gray-800">
         <Button type="text" shape="circle" icon={<ClearOutlined className="text-white" onClick={toggleCurrentTheme} />} />
+
         <RouteResponseLanguageSelector
           currentLanguage={currentLanguage}
           onChangeLanguage={setCurrentLanguage}
