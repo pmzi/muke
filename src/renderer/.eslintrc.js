@@ -20,4 +20,16 @@ module.exports = {
   ],
   rules: {
   },
+  settings: {
+    "import/resolver" : {
+      alias : {
+        map : [
+          ["@common", "./src/common"],
+          ["@", "./src"],
+          ["@@","./src/views"]
+        ],
+        extensions: [".js", ".jsx"]
+      }
+    }
+  }
 };
