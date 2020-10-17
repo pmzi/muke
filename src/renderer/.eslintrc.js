@@ -25,6 +25,7 @@ module.exports = {
       alias : {
         map : [
           ["@common", "./src/common"],
+          ["@services", "./src/services"],
           ["@", "./src"],
           ["@@","./src/views"]
         ],
