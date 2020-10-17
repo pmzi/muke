@@ -1,15 +1,16 @@
 import React from 'react';
 
-import ServerHeader from './ServerHeader/index';
+import ServerHeader from './ServerHeader';
+import WorkspaceSidebar from './WorkspaceSidebar';
 
 export default function Workspace() {
   return (
-    <div className="grid grid-cols-workspace grid-rows-workspace">
-      <header className="col-span-2 border-b border-grey-500 border-solid mb-4 px-4 flex justify-between items-center">
+    <div className="h-full grid grid-cols-workspace grid-rows-workspace">
+      <header className="col-span-2 border-b border-grey-500 border-solid px-10 flex justify-between items-center">
         <ServerHeader />
       </header>
-      <aside>
-        Aside
+      <aside className="h-full flex flex-col border-r border-grey-500 border-solid">
+        <WorkspaceSidebar />
       </aside>
       <div>
         Content

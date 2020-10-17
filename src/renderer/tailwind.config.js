@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         layout: 'minmax(0, max-content) 1fr',
-        workspace: '10rem 1fr',
+        workspace: '20rem 1fr',
       },
       gridTemplateRows: {
         layout: '1fr 3rem',
