@@ -14,6 +14,10 @@ export default function Editor({
     editor.current.layout();
   }
 
+  function changeTheme(themeValue) {
+    monaco.editor.setTheme(themeValue);
+  }
+
   useEffect(() => {
     editor.current = monaco.editor.create(editorRef.current, {
       value,
@@ -30,8 +34,10 @@ export default function Editor({
       onValueChange(editorModel.current.getValue());
     });
 
+    changeTheme(theme);
+
     return () => {
-      editorModel.dispose();
+      editorModel.current.dispose();
       resizeObserver.disconnect();
     };
   }, []);
@@ -43,6 +49,10 @@ export default function Editor({
   useEffect(() => {
     monaco.editor.setModelLanguage(editorModel.current, language);
   }, [language]);
+
+  useEffect(() => {
+    changeTheme(theme);
+  }, [theme]);
 
   return (
     <div className="h-full" ref={editorRef} />
@@ -57,6 +67,6 @@ Editor.propTypes = {
 };
 
 Editor.defaultProps = {
-  theme: 'dark',
+  theme: 'vs-dark',
   language: 'javascript',
 };
