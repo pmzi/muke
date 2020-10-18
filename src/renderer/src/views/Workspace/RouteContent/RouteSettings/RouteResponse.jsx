@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Editor from '@monaco-editor/react';
+// import Editor from '@monaco-editor/react';
 import { Button } from 'antd';
 import { ClearOutlined, LoadingOutlined } from '@ant-design/icons';
-
 import {
   DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES, THEME_STORAGE_KEY,
 } from '@common/constants/editor';
 import { write, read } from '@services/storage';
+import Editor from './Editor';
 
 import RouteResponseLanguageSelector from './RouteResponseLanguageSelector';
 
@@ -34,7 +34,7 @@ export default function RouteResponse() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-grow">
+      <div className="flex-grow overflow-hidden">
         <Editor
           height="100%"
           theme={currentTheme}
