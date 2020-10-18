@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-// import Editor from '@monaco-editor/react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
-import { ClearOutlined, LoadingOutlined } from '@ant-design/icons';
+import { ClearOutlined } from '@ant-design/icons';
 import {
   DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES, THEME_STORAGE_KEY,
 } from '@common/constants/editor';
@@ -23,6 +22,11 @@ const INITIAL_THEME = getPersistedTheme() || DEFAULT_THEME;
 export default function RouteResponse() {
   const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
   const [currentTheme, setCurrentTheme] = useState(INITIAL_THEME);
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(currentLanguage.code);
+  }, [currentLanguage]);
 
   function toggleCurrentTheme() {
     const theme = currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
@@ -32,15 +36,18 @@ export default function RouteResponse() {
     persistTheme(theme);
   }
 
+  function handleValueChange(newVal) {
+    setValue(newVal);
+  }
+
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow overflow-hidden">
         <Editor
-          height="100%"
           theme={currentTheme}
-          value={currentLanguage.code}
+          value={value}
+          onValueChange={handleValueChange}
           language={currentLanguage.value}
-          loading={<LoadingOutlined />}
         />
       </div>
 
