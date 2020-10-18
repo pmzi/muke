@@ -2,6 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import Router from './Router';
 import WorkspaceList from './WorkspaceList';
+import Footer from './Footer';
 
 function App() {
   return (
@@ -13,16 +14,8 @@ function App() {
         <main>
           <Router />
         </main>
-        <footer className="flex justify-center items-center text-sm">
-          <div>
-            Made with
-            {' '}
-            <span aria-label="love" role="img">♥️</span>
-            {' '}
-            by
-            {' '}
-            <a href="https://github.com/pmzi" rel="noopener noreferrer" target="_blank">pmzi</a>
-          </div>
+        <footer className="flex justify-center items-center text-sm border-t border-gray-400">
+          <Footer />
         </footer>
       </div>
     </MemoryRouter>
