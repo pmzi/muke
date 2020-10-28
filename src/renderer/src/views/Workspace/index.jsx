@@ -2,7 +2,7 @@ import React from 'react';
 
 import ServerHeader from './ServerHeader';
 import WorkspaceSidebar from './WorkspaceSidebar';
-import RouteContent from './RouteContent';
+import WorkspaceRouter from './WorkspaceRouter';
 
 export default function Workspace() {
   return (
@@ -14,7 +14,7 @@ export default function Workspace() {
         <WorkspaceSidebar />
       </aside>
       <div>
-        <RouteContent />
+        <WorkspaceRouter />
       </div>
     </div>
   );

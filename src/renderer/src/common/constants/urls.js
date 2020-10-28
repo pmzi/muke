@@ -1,2 +1,5 @@
-// eslint-disable-next-line import/prefer-default-export
 export const WORKSPACE = (id) => `/workspace/${id}`;
+
+export const ROUTE = ({
+  workspaceId, routeId,
+}) => `${WORKSPACE(workspaceId)}/workspace/${routeId}`;
