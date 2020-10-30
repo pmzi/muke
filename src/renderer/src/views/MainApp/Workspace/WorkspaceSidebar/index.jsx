@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WorkspaceList from './WorkspaceList';
+import RouteList from './RouteList';
 import WorkspaceSidebarHeader from './WorkspaceSidebarHeader/index';
 
 export default function WorkspaceSidebar() {
@@ -11,7 +11,7 @@ export default function WorkspaceSidebar() {
       </header>
 
       <div className="flex-grow">
-        <WorkspaceList />
+        <RouteList />
       </div>
     </>
   );

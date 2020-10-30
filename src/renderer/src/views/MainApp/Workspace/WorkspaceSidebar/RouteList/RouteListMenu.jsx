@@ -17,7 +17,7 @@ function findParent(parent, clonedItems) {
   return null;
 }
 
-export default function WorkspaceListMenu({ goToRoute }) {
+export default function RouteListMenu({ goToRoute }) {
   const [items, setItems] = useState([{
     id: 1,
     title: 'salam1',
@@ -63,6 +63,6 @@ export default function WorkspaceListMenu({ goToRoute }) {
   );
 }
 
-WorkspaceListMenu.propTypes = {
+RouteListMenu.propTypes = {
   goToRoute: PropTypes.func.isRequired,
 };

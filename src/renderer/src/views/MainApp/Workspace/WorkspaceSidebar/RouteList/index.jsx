@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { ROUTE } from '@common/constants/urls';
 
-import WorkspaceListMenu from './WorkspaceListMenu';
+import RouteListMenu from './RouteListMenu';
 
-export default function WorkspaceList() {
+export default function RouteList() {
   const history = useHistory();
   const { workspace } = useParams();
 
@@ -19,6 +19,6 @@ export default function WorkspaceList() {
   }, [workspace]);
 
   return (
-    <WorkspaceListMenu goToRoute={goToRoute} />
+    <RouteListMenu goToRoute={goToRoute} />
   );
 }
