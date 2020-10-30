@@ -23,9 +23,6 @@ const createWindow = () => {
 
   mainWindow.webContents.on('new-window', (event, url, windowName, additionalFeatures, options) => {
     event.preventDefault()
-    Object.assign(options, {
-      parent: mainWindow,
-    })
     const newWindow = new BrowserWindow(options)
     newWindow.loadURL(url);
     newWindow.webContents.openDevTools();
