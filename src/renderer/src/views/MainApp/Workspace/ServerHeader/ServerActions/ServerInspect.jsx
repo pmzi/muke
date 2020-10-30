@@ -8,7 +8,6 @@ import { INSPECT } from '@common/constants/urls';
 
 export default function ServerInspectButton({ serverStatus, className }) {
   const disabled = serverStatus !== 'running';
-  // const disabledClasses = disabled ? ' cursor-not-allowed text-gray-600' : ' cursor-pointer';
 
   function openInspectPage() {
     openModalSubWindow(INSPECT(1));
