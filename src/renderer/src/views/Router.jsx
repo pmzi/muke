@@ -6,11 +6,12 @@ import {
 } from 'react-router-dom';
 
 import MainApp from './MainApp';
+import Inspect from './Inspect';
 
 export default function Router() {
   return (
     <Switch>
-      <Route path="/inspect/:serverId" component={() => <h1>Hey</h1>} />
+      <Route path="/inspect/:serverId" component={Inspect} />
       <Route component={MainApp} />
     </Switch>
   );
