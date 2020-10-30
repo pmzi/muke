@@ -7,7 +7,7 @@ import MenuHandle from './MenuHandle';
 
 export default SortableElement(
   ({ id, text, ...props }) => (
-    <Menu.Item key={id} {...props}>
+    <Menu.Item className="flex items-center" key={id} {...props}>
       <MenuHandle />
       {text}
     </Menu.Item>

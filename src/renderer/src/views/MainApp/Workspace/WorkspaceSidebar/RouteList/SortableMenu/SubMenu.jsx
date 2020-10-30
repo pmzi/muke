@@ -11,10 +11,10 @@ const SubMenuItems = SortableContainer(({ items, title, ...props }) => (
     className="list-none"
     {...props}
     title={(
-      <>
+      <span className="flex items-center">
         <MenuHandle />
         {title}
-      </>
+      </span>
     )}
   >
     {items.map(({ id, ...menuItemProps }, index) => (
