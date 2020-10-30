@@ -5,7 +5,8 @@ export default function OpenExternal(props) {
   // eslint-disable-next-line react/prop-types
   const { href } = props;
 
-  function openLink() {
+  function openLink(e) {
+    e.preventDefault();
     if (href) openExternalLink(href);
   }
 

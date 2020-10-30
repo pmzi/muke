@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ExternalLink from '@common/components/ExternalLink';
+
 export default function Footer() {
   return (
     <div>
@@ -9,7 +11,7 @@ export default function Footer() {
       {' '}
       by
       {' '}
-      <a href="https://github.com/pmzi" rel="noopener noreferrer" target="_blank">pmzi</a>
+      <ExternalLink href="https://github.com/pmzi" rel="noopener noreferrer" target="_blank">pmzi</ExternalLink>
     </div>
   );
 }
