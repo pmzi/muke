@@ -1,17 +1,17 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 
-import { Menu } from 'antd';
+import { Divider } from 'antd';
 
 import { useHistory } from 'react-router-dom';
 
 import {
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
 
 import { WORKSPACE } from '@common/constants/urls';
+import bazaarLogo from '@/assets/images/bazaar.png';
 import WorkspaceListAddModal from './WorkspaceListAddModal';
 
 export default function WorkspaceList() {
@@ -32,24 +32,23 @@ export default function WorkspaceList() {
 
   return (
     <>
-      <Menu
-        className="h-full w-full"
-        mode="inline"
-        inlineCollapsed
-      >
-        <Menu.Item onClick={goToWorkspace} key="1" icon={<PieChartOutlined />}>
-          Option 1
-        </Menu.Item>
-        <Menu.Item onClick={goToWorkspace} key="2" icon={<DesktopOutlined />}>
-          Option 2
-        </Menu.Item>
-        <Menu.Item onClick={goToWorkspace} key="3" icon={<ContainerOutlined />}>
-          Option 3
-        </Menu.Item>
-        <Menu.Item onClick={showAddNewServerModal} className="text-green-600 font-bold" key="add" icon={<PlusOutlined />}>
-          Add a New Server
-        </Menu.Item>
-      </Menu>
+      <div className="h-full w-32 border-r border-gray-300 border-solid flex items-center flex-col pt-4 pb-4">
+        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border-4 border-blue-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
+          <img alt="server" className="w-12" src={bazaarLogo} />
+        </div>
+        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
+          <img alt="server" className="w-12" src={bazaarLogo} />
+        </div>
+        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center">
+          <img alt="server" className="w-12" src={bazaarLogo} />
+        </div>
+
+        <Divider className="mt-4 mb-4" />
+
+        <div role="button" onClick={showAddNewServerModal} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
+          <PlusOutlined className="w-12" />
+        </div>
+      </div>
 
       <WorkspaceListAddModal showModal={showModal} onCloseModal={closeAddNewServerModal} />
     </>
