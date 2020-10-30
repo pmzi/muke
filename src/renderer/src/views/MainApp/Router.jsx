@@ -5,13 +5,15 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import MainApp from './MainApp';
+import NoWorkspaceSelected from './NoWorkspaceSelected';
+import Workspace from './Workspace';
 
 export default function Router() {
   return (
     <Switch>
+      <Route path="/workspace/:workspace" component={Workspace} />
       <Route path="/inspect/:serverId" component={() => <h1>Hey</h1>} />
-      <Route component={MainApp} />
+      <Route component={NoWorkspaceSelected} />
     </Switch>
   );
 }
