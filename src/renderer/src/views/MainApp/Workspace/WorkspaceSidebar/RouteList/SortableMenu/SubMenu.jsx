@@ -8,6 +8,7 @@ import MenuItem from './MenuItem';
 
 const SubMenuItems = SortableContainer(({ items, title, ...props }) => (
   <Menu.SubMenu
+    className="list-none"
     {...props}
     title={(
       <>
