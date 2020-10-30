@@ -16,6 +16,7 @@ export default function ServerInspectButton({ serverStatus, className }) {
   return (
     <Button
       type="text"
+      shape="circle"
       icon={<BugOutlined />}
       onClick={openInspectPage}
       disabled={disabled}

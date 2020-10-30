@@ -16,6 +16,7 @@ export default function ServerActions({ serverStatus, startServer, pauseServer }
   return (
     <Button
       type="text"
+      shape="circle"
       icon={actionIcon}
       onClick={handleClick}
       className="flex items-center justify-center"
