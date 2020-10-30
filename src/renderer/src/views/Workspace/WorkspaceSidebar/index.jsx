@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WorkspaceList from './WorkspaceList';
+import WorkspaceList from './WorkspaceList/WorkspaceListMenu';
 import WorkspaceSidebarHeader from './WorkspaceSidebarHeader/index';
 
 export default function WorkspaceSidebar() {
