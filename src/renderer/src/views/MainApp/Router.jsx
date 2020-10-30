@@ -12,7 +12,6 @@ export default function Router() {
   return (
     <Switch>
       <Route path="/workspace/:workspace" component={Workspace} />
-      <Route path="/inspect/:serverId" component={() => <h1>Hey</h1>} />
       <Route component={NoWorkspaceSelected} />
     </Switch>
   );
