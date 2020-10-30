@@ -5,6 +5,8 @@ import {
   Form, Radio, Input, Select,
 } from 'antd';
 
+const { Option } = Select;
+
 const typeOptions = [
   {
     label: 'Group', value: 'group',
@@ -89,6 +91,12 @@ export default function WorkspaceAddPathModalForm({ form, onFinish }) {
     <>
       <Form.Item name="routeName" label="Name">
         <Input placeholder="Login" />
+      </Form.Item>
+      <Form.Item name="parentGroup" label="Parent">
+        <Select defaultValue="none">
+          <Option value="none">None</Option>
+          <Option value="parent1">Parent 1</Option>
+        </Select>
       </Form.Item>
       <Form.Item name="route" label="Path">
         <Input addonBefore={pathTypes} addonAfter={pathMatchTypes} placeholder="/some-endpoint" />
