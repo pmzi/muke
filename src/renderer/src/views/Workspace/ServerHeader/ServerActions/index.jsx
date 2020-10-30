@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { PauseOutlined, CaretRightOutlined } from '@ant-design/icons';
 import ServerInfoTag from './ServerInfoTag';
+import ServerInspect from './ServerInspect';
 
 export default function ServerActions() {
   const [serverStatus, setServerStatus] = useState('stopped');
@@ -20,6 +21,7 @@ export default function ServerActions() {
   return (
     <div className="flex items-center">
       <ServerInfoTag serverStatus={serverStatus} />
+      <ServerInspect className="mr-3 ml-5" serverStatus={serverStatus} />
       { actionContent }
     </div>
   );
