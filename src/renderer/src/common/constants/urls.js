@@ -7,3 +7,8 @@ export const ROUTE = ({
 }) => `${WORKSPACE(workspaceId)}/workspace/${routeId}`;
 
 export const INSPECT = (serverId) => `/inspect/${serverId}`;
+
+export const INSPECT_REQUEST_DETAIL = ({
+  serverId,
+  id,
+}) => `${INSPECT(serverId)}/request/${id}`;
