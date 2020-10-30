@@ -49,6 +49,9 @@ export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
         >
           <Input />
         </Form.Item>
+        <Form.Item extra="If none of the routes matched the incoming request, request will be proxied to the given server" name="proxy" label="Proxy Server">
+          <Input placeholder="http://site.com/api" />
+        </Form.Item>
       </Form>
     </Modal>
   );
