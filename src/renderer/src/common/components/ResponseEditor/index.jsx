@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
+import { write, read } from '@services/storage';
+
 import {
   DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES, THEME_STORAGE_KEY,
-} from '@common/constants/editor';
-import { write, read } from '@services/storage';
-import Editor from './Editor';
-
-import RouteResponseLanguageSelector from './RouteResponseLanguageSelector';
+} from './config';
+import Editor from './MonacoEditor';
+import ResponseEditorLanguageSelector from './ResponseEditorLanguageSelector';
 
 function persistTheme(theme) {
   write(THEME_STORAGE_KEY, theme);
@@ -54,7 +54,7 @@ export default function RouteResponse() {
       <footer className="flex items-center justify-between bg-gray-800">
         <Button type="text" shape="circle" icon={<ClearOutlined className="text-white" onClick={toggleCurrentTheme} />} />
 
-        <RouteResponseLanguageSelector
+        <ResponseEditorLanguageSelector
           currentLanguage={currentLanguage}
           onChangeLanguage={setCurrentLanguage}
         />

@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { Tabs } from 'antd';
 
 import TabTitle from '@/common/components/TabTitle';
+import ResponseEditor from '@common/components/ResponseEditor';
 import RouteGeneralSettings from './RouteGeneralSettings';
 import RouteHeadersSettings from './RouteHeadersSettings';
-import RouteResponse from './RouteResponse';
 
 import './style.scss';
 
@@ -28,7 +28,7 @@ export default function RouteSettings() {
         </div>
       </Tabs.TabPane>
       <Tabs.TabPane className="h-full" disabled={onDemandResponse} tab={<TabTitle title="Response" />} key="3">
-        <RouteResponse />
+        <ResponseEditor />
       </Tabs.TabPane>
     </Tabs>
   );

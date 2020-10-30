@@ -1,0 +1,9 @@
+.OnDemandDetails {
+  .ant-tabs-content {
+    @apply h-full;
+  }
+
+  .ant-tabs-content-holder {
+    @apply overflow-y-auto;
+  }
+}

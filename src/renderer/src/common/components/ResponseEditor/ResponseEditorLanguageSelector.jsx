@@ -5,7 +5,7 @@ import { UpOutlined } from '@ant-design/icons';
 
 import {
   LANGUAGES,
-} from '@common/constants/editor';
+} from './config';
 
 export default function RouteResponseLanguageSelector({ currentLanguage, onChangeLanguage }) {
   const menuItems = Object.values(LANGUAGES).map((language) => {
