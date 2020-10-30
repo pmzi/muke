@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Tabs } from 'antd';
 
-import TabTitle from './TabTitle';
+import TabTitle from '@/common/components/TabTitle';
 import RouteGeneralSettings from './RouteGeneralSettings';
 import RouteHeadersSettings from './RouteHeadersSettings';
 import RouteResponse from './RouteResponse';
@@ -22,7 +22,7 @@ export default function RouteSettings() {
           <RouteGeneralSettings onDemandChanged={setOnDemandResponse} />
         </div>
       </Tabs.TabPane>
-      <Tabs.TabPane tab={<TabTitle title="Request Headers" />} key="2">
+      <Tabs.TabPane tab={<TabTitle title="Response Headers" />} key="2">
         <div className="px-6">
           <RouteHeadersSettings />
         </div>

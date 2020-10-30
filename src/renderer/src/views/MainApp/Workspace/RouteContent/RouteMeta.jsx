@@ -3,13 +3,15 @@ import React from 'react';
 import { Descriptions, Tag, Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 
+import RequestTag from '@common/components/RequestTag';
+
 export default function RouteMeta() {
   const editButton = (
     <Button type="text" shape="circle" icon={<EditOutlined />} />
   );
   return (
     <Descriptions title="Login Route" layout="horizontal" extra={editButton}>
-      <Descriptions.Item label="Route Type"><Tag color="red">GET</Tag></Descriptions.Item>
+      <Descriptions.Item label="Route Type"><RequestTag method="get" /></Descriptions.Item>
       <Descriptions.Item label="Match Type">
         <Tag color="green">Exact</Tag>
       </Descriptions.Item>
