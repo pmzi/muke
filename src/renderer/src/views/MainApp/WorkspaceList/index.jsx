@@ -33,13 +33,13 @@ export default function WorkspaceList() {
   return (
     <>
       <div className="h-full w-32 border-r border-gray-300 border-solid flex items-center flex-col pt-4 pb-4">
-        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border-4 border-blue-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
+        <div role="button" key="1" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border-4 border-blue-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
           <img alt="server" className="w-12" src={bazaarLogo} />
         </div>
-        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
+        <div role="button" key="2" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
           <img alt="server" className="w-12" src={bazaarLogo} />
         </div>
-        <div role="button" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center">
+        <div role="button" key="3" onClick={goToWorkspace} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border border-gray-300 border-solid h-20 w-20 flex items-center justify-center">
           <img alt="server" className="w-12" src={bazaarLogo} />
         </div>
 

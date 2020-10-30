@@ -1,6 +1,6 @@
 import React from 'react';
 import { Empty } from 'antd';
-import selectRequestImage from '@/assets/images/selectRequest.svg';
+import requestImage from '@/assets/images/request.svg';
 
 export default function NoRequestSelected() {
   return (
@@ -11,7 +11,7 @@ export default function NoRequestSelected() {
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        image={selectRequestImage}
+        image={requestImage}
         description="No Request Selected!"
       />
     </div>
