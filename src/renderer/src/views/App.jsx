@@ -1,12 +1,12 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Router from './Router';
 import WorkspaceList from './WorkspaceList';
 import Footer from './Footer';
 
 function App() {
   return (
-    <MemoryRouter>
+    <BrowserRouter>
       <div className="h-screen grid grid-cols-layout grid-rows-layout">
         <aside className="row-span-2">
           <WorkspaceList />
@@ -18,7 +18,7 @@ function App() {
           <Footer />
         </footer>
       </div>
-    </MemoryRouter>
+    </BrowserRouter>
   );
 }
 
