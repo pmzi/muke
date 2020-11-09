@@ -11,7 +11,7 @@
     "@services": "./src/services",
     "@controllers": "./src/controllers",
     "@shared": "./src/shared",
-    "@model": "./src/model"
+    "@models": "./src/models"
   },
   "author": "",
   "license": "ISC",

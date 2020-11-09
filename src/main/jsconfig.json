@@ -4,9 +4,9 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@services/*": ["./src/services/*"],
-      "@controllers/*": ["./src/controllers/*"],
+      "@controller/*": ["./src/controllers/*"],
       "@shared/*": ["./src/shared/*"],
-      "@model/*": ["./src/model/*"]
+      "@models/*": ["./src/models/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

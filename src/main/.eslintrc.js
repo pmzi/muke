@@ -19,7 +19,7 @@ module.exports = {
           ['@services', './src/services'],
           ['@src', './src'],
           ['@controllers', './src/controllers'],
-          ['@model', './src/model'],
+          ['@models', './src/models'],
         ],
         extensions: ['.js'],
       },

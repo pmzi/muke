@@ -1,4 +1,4 @@
-const Workspace = require('@src/model/Workspace');
+const Workspace = require('@models/Workspace');
 
 module.exports = {
   async createWorkspace({
