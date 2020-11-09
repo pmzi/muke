@@ -23,6 +23,8 @@ const Workspace = db.define('Workspace', {
   proxy: {
     type: DataTypes.STRING,
   },
+}, {
+  timestamps: false,
 });
 
 module.exports = Workspace;

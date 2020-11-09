@@ -17,6 +17,8 @@ const RouteGroup = db.define('RouteGroup', {
     allowNull: false,
     unique: true,
   },
+}, {
+  timestamps: false,
 });
 
 module.exports = RouteGroup;

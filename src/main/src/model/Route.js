@@ -33,6 +33,8 @@ const Route = db.define('Route', {
     allowNull: false,
     unique: true,
   },
+}, {
+  timestamps: false,
 });
 
 module.exports = Route;
