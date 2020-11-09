@@ -1,4 +1,4 @@
-const { CREATE_WORKSPACE } = require('@shared/constants/listenerPaths');
+const { CREATE_WORKSPACE } = require('@shared/constants/listenerChannels');
 
 const workspaceController = require('@controllers/workspace');
 
