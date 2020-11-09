@@ -5,7 +5,8 @@
       "@src/*": ["./src/*"],
       "@services/*": ["./src/services/*"],
       "@controller/*": ["./src/controller/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@model/*": ["./src/model/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

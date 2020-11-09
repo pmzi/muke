@@ -10,7 +10,8 @@
     "@src": "./src",
     "@services": "./src/services",
     "@controllers": "./src/controllers",
-    "@shared": "./src/shared"
+    "@shared": "./src/shared",
+    "@model": "./src/model"
   },
   "author": "",
   "license": "ISC",
