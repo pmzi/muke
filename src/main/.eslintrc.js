@@ -11,4 +11,17 @@ module.exports = {
   },
   rules: {
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@shared', './src/shared'],
+          ['@services', './src/services'],
+          ['@src', './src'],
+          ['@controllers', './src/controllers'],
+        ],
+        extensions: ['.js'],
+      },
+    },
+  },
 };

@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@services/*": ["./src/services/*"],
+      "@controller/*": ["./src/controller/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
