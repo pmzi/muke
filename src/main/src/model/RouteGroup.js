@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('@services/db');
 
-const Workspace = db.define('Workspace', {
+const RouteGroup = db.define('RouteGroup', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -12,17 +12,11 @@ const Workspace = db.define('Workspace', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  address: {
-    type: DataTypes.STRING,
+  order: {
+    type: DataTypes.INTEGER,
     allowNull: false,
-  },
-  port: {
-    type: DataTypes.NUMBER,
-    allowNull: false,
-  },
-  proxy: {
-    type: DataTypes.STRING,
+    unique: true,
   },
 });
 
-module.exports = Workspace;
+module.exports = RouteGroup;
