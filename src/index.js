@@ -1,9 +1,9 @@
 const { app, BrowserWindow } = require('electron');
 const mainApp = require('./main/app');
 
-try {
-  require('electron-reloader')(module);
-} catch (_) {}
+// try {
+//   require('electron-reloader')(module);
+// } catch (_) {}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require

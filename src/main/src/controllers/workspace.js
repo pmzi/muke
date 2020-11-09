@@ -12,4 +12,38 @@ module.exports = {
     });
     return workspaceData;
   },
+
+  async deleteWorkspace(id) {
+    await Workspace.destroy({
+      where: {
+        id,
+      },
+    });
+  },
+
+  async getWorkspaceInfo(id) {
+    const workspaceInfo = await Workspace.find({
+      where: {
+        id,
+      },
+    });
+
+    return workspaceInfo;
+  },
+
+  async editWorkspaceInfo({
+    id, name, address, port, proxy,
+  }) {
+    const editedInfo = await Workspace.update({
+      name, address, port, proxy,
+    }, { where: { id } });
+
+    return editedInfo;
+  },
+
+  async getAllWorkspaces() {
+    const allWorkspaces = await Workspace.findAll();
+
+    return allWorkspaces;
+  },
 };
