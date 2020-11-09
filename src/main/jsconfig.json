@@ -4,7 +4,7 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@services/*": ["./src/services/*"],
-      "@controller/*": ["./src/controller/*"],
+      "@controllers/*": ["./src/controllers/*"],
       "@shared/*": ["./src/shared/*"],
       "@model/*": ["./src/model/*"]
     }
