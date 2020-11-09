@@ -1,16 +1,15 @@
 const { CREATE_WORKSPACE } = require('@shared/constants/listenerPaths');
-const Workspace = require('@model/Workspace');
+
+const workspaceController = require('@controllers/workspace');
 
 module.exports = function registerListeners({ listen }) {
-  Workspace.create({
-    name: 'name',
-    address: 'address',
-    port: 10,
-    proxy: 'proxy',
-  }).then(console.log).catch(console.log);
-  listen(CREATE_WORKSPACE, (event) => {
-    event.reply(CREATE_WORKSPACE, {
-      bar: 'foo1',
+  listen(CREATE_WORKSPACE, async (event, {
+    name, address, port, proxy,
+  }) => {
+    const newWorkspace = await workspaceController.createWorkspace({
+      name, address, port, proxy,
     });
+
+    event.reply(CREATE_WORKSPACE, newWorkspace.toJSON());
   });
 };
