@@ -12,11 +12,6 @@ const RouteGroup = db.define('RouteGroup', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  order: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-  },
 }, {
   timestamps: false,
 });

@@ -28,11 +28,6 @@ const Route = db.define('Route', {
     type: DataTypes.TINYINT,
     allowNull: false,
   },
-  order: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-  },
 }, {
   timestamps: false,
 });
