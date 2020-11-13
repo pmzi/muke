@@ -4,17 +4,20 @@ const { IS_DEVELOPMENT } = require('@src/config');
 const Workspace = require('./Workspace');
 const RouteGroup = require('./RouteGroup');
 const Route = require('./Route');
+const RouteItem = require('./RouteItem');
 
 exports.init = async function initialize() {
   // Initializing Relations
-  RouteGroup.hasMany(Route);
-  Route.belongsTo(RouteGroup);
+  Workspace.hasMany(RouteItem);
+  RouteItem.belongsTo(Workspace);
 
-  Workspace.hasMany(RouteGroup);
-  RouteGroup.belongsTo(Workspace);
+  RouteItem.hasMany(Route);
+  Route.belongsTo(RouteItem);
 
-  Workspace.hasMany(Route);
-  Route.belongsTo(Workspace);
+  RouteItem.hasMany(RouteGroup);
+  RouteGroup.belongsTo(RouteItem);
+
+  RouteItem.hasMany(RouteItem);
 
   await db.sync({ force: IS_DEVELOPMENT });
 };

@@ -6,7 +6,9 @@ import Footer from './Footer';
 
 function App() {
   useEffect(() => {
-    dispatch('WORKSPACE/CREATE', { foo: 'bar' }).then(console.log);
+    dispatch('WORKSPACE/CREATE', {
+      name: 'bar', address: 'address', port: 3000, proxy: 'api.cafebazaar.ir',
+    }).then(console.log);
   }, []);
 
   return (
