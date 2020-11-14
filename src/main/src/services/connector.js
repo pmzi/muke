@@ -3,14 +3,14 @@ const { ipcMain } = require('electron');
 exports.listen = function listen(eventName, cb) {
   ipcMain.on(eventName, (event, ...args) => {
     const res = {
-      success(channel, data) {
-        event.reply(channel, {
+      success(data) {
+        event.reply(eventName, {
           status: 'success',
           body: data,
         });
       },
-      error(channel, data) {
-        event.reply(channel, {
+      error(data) {
+        event.reply(eventName, {
           status: 'error',
           body: data,
         });
