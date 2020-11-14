@@ -28,6 +28,18 @@ const Route = db.define('Route', {
     type: DataTypes.TINYINT,
     allowNull: false,
   },
+  enabled: {
+    type: DataTypes.BOOLEAN,
+    default: true,
+  },
+  responseType: {
+    type: DataTypes.TINYINT,
+    default: 1,
+  },
+  onDemand: {
+    type: DataTypes.BOOLEAN,
+    default: false,
+  },
 }, {
   timestamps: false,
 });
