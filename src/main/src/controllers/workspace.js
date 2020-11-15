@@ -34,11 +34,9 @@ module.exports = {
   async editWorkspaceInfo({
     id, name, address, port, proxy,
   }) {
-    const editedInfo = await Workspace.update({
+    await Workspace.update({
       name, address, port, proxy,
     }, { where: { id } });
-
-    return editedInfo;
   },
 
   async getAllWorkspaces() {
