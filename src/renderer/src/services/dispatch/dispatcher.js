@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ipcRenderer } from 'electron';
 
-export default function dispatch(eventName, data) {
+export default function dispatcher(eventName, data) {
   return new Promise((resolve) => {
     ipcRenderer.send(eventName, data);
 

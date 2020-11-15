@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
-import dispatch from '@services/dispatch';
+import React from 'react';
 import Router from './Router';
 import WorkspaceList from './WorkspaceList';
 import Footer from './Footer';
 
 function App() {
-  useEffect(() => {
-    dispatch('WORKSPACE/CREATE', {
-      name: 'bar', address: 'address', port: 3000, proxy: 'api.cafebazaar.ir',
-    }).then(console.log);
-  }, []);
-
   return (
     <div className="h-screen grid grid-cols-layout grid-rows-layout">
       <aside className="row-span-2">
