@@ -2,27 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Modal, Form, Input,
+  message as $message,
 } from 'antd';
 
-import { required } from '@common/utilities/formValidations';
+import { required, url, number } from '@common/utilities/formValidations';
+import { workspace } from '@/api';
 
 export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
   const [form] = Form.useForm();
 
-  function addServer() {
+  function submitForm() {
     form.submit();
-    // onCloseModal();
+  }
+
+  async function addServer({
+    name, address, port, proxy,
+  }) {
+    try {
+      await workspace.createWorkspace({
+        name, address, port, proxy,
+      });
+
+      $message.success('Server Created Successfully!');
+
+      onCloseModal();
+    } catch ({ message }) {
+      $message.error(message);
+    }
   }
 
   return (
     <Modal
       title="Add New Server"
       visible={showModal}
-      onOk={addServer}
+      onOk={submitForm}
       onCancel={onCloseModal}
     >
       <Form
         form={form}
+        onFinish={addServer}
         layout="vertical"
         name="addNewServer"
       >
@@ -45,11 +63,11 @@ export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
         <Form.Item
           label="Port"
           name="port"
-          rules={[required('Please enter server port!')]}
+          rules={[required('Please enter server port!'), number()]}
         >
-          <Input />
+          <Input type="number" />
         </Form.Item>
-        <Form.Item extra="If none of the routes matched the incoming request, request will be proxied to the given server" name="proxy" label="Proxy Server">
+        <Form.Item rules={[url()]} extra="If none of the routes matched the incoming request, request will be proxied to the given server" name="proxy" label="Proxy Server">
           <Input placeholder="http://site.com/api" />
         </Form.Item>
       </Form>
