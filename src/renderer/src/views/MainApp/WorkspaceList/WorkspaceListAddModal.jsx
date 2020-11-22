@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import notify from '@services/notify';
 import {
   Modal, Form, Input,
-  message as $message,
 } from 'antd';
 
 import { required, url, number } from '@common/utilities/formValidations';
@@ -23,11 +23,11 @@ export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
         name, address, port, proxy,
       });
 
-      $message.success('Server Created Successfully!');
+      notify.success('Server Created Successfully!');
 
       onCloseModal();
     } catch ({ message }) {
-      $message.error(message);
+      notify.error(message);
     }
   }
 
