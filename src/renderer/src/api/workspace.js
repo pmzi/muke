@@ -9,6 +9,15 @@ function createWorkspace({
   });
 }
 
+function getAllWorkspaces() {
+  return Promise.resolve([{
+    id: 1,
+    image: null,
+  }]);
+  // return dispatch(GET_ALL_WORKSPACES);
+}
+
 export default {
   createWorkspace,
+  getAllWorkspaces,
 };
