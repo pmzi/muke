@@ -17,9 +17,10 @@ export default function WorkspaceListItem({ image, onClick, isActive }) {
 WorkspaceListItem.propTypes = {
   image: PropTypes.string,
   onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool,
 };
 
 WorkspaceListItem.defaultProps = {
   image: null,
+  isActive: false,
 };
