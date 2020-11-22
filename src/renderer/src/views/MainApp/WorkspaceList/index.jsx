@@ -11,10 +11,10 @@ import {
 } from '@ant-design/icons';
 
 import { WORKSPACE } from '@common/constants/urls';
-import bazaarLogo from '@/assets/images/bazaar.png';
 import { useGetWorkspaces } from '@common/hooks/dataHooks';
 import WorkspaceListAddModal from './WorkspaceListAddModal';
 import WorkspaceListLoading from './WorkspaceListLoading';
+import WorkspaceListItem from './WorkspaceListItem';
 
 export default function WorkspaceList() {
   const history = useHistory();
@@ -34,9 +34,7 @@ export default function WorkspaceList() {
   }
 
   const content = isLoading ? <WorkspaceListLoading /> : data.map(({ id, image }) => (
-    <div role="button" key={id} onClick={() => goToWorkspace(id)} className="transform hover:scale-110 duration-500 cursor-pointer rounded-full border-4 border-blue-300 border-solid h-20 w-20 flex items-center justify-center mb-4">
-      <img alt="server" className="w-12" src={image || bazaarLogo} />
-    </div>
+    <WorkspaceListItem image={image} key={id} onClick={() => goToWorkspace(id)} />
   ));
   return (
     <>
