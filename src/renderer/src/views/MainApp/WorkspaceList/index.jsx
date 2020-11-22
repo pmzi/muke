@@ -21,7 +21,7 @@ export default function WorkspaceList() {
   const [showModal, setShowModal] = useState(false);
   const { data, isLoading } = useGetWorkspaces();
 
-  function goToWorkspace({ key }) {
+  function goToWorkspace(key) {
     history.push(WORKSPACE(key));
   }
 
