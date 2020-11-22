@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import notify from '@services/notify';
 import {
-  Modal, Form, Input,
+  Modal, Form, Input, Button,
 } from 'antd';
 
 import { required, url, number } from '@common/utilities/formValidations';
-import { workspace } from '@/api';
+import { useAddWorkspace } from '@common/hooks/dataHooks';
 
 export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
   const [form] = Form.useForm();
+
+  const [mutate, { isLoading }] = useAddWorkspace();
 
   function submitForm() {
     form.submit();
@@ -19,7 +21,7 @@ export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
     name, address, port, proxy,
   }) {
     try {
-      await workspace.createWorkspace({
+      await mutate({
         name, address, port, proxy,
       });
 
@@ -37,6 +39,14 @@ export default function WorkspaceListAddModal({ showModal, onCloseModal }) {
       visible={showModal}
       onOk={submitForm}
       onCancel={onCloseModal}
+      footer={[
+        <Button key="back" onClick={onCloseModal}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" loading={isLoading} onClick={submitForm}>
+          Add Workspace
+        </Button>,
+      ]}
     >
       <Form
         form={form}
