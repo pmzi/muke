@@ -1,13 +1,41 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import { List } from 'antd';
+import { useParams } from 'react-router-dom';
 
-export default function ServerInfoModalList({ data }) {
+import { useGetWorkspaceInfo } from '@common/hooks/dataHooks';
+import ServerInfoModalListLoading from './ServerInfoModalListLoading';
+
+function transformDataToListData({
+  name, address, port,
+}) {
+  return [
+    {
+      name: 'Server Name',
+      value: name,
+    },
+    {
+      name: 'Server Address',
+      value: address,
+    },
+    {
+      name: 'Port',
+      value: port,
+    },
+  ];
+}
+
+export default function ServerInfoModalList() {
+  const { workspace } = useParams();
+  const { data, isLoading } = useGetWorkspaceInfo(workspace);
+
+  if (isLoading) return <ServerInfoModalListLoading />;
+
+  const listData = transformDataToListData(data);
+
   return (
     <List
       itemLayout="horizontal"
-      dataSource={data}
+      dataSource={listData}
       renderItem={(item) => (
         <List.Item>
           <List.Item.Meta
@@ -19,10 +47,3 @@ export default function ServerInfoModalList({ data }) {
     />
   );
 }
-
-ServerInfoModalList.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string,
-  })).isRequired,
-};
