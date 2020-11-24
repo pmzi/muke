@@ -10,7 +10,7 @@ export default function WorkspaceSidebar() {
         <WorkspaceSidebarHeader />
       </header>
 
-      <div className="flex-grow">
+      <div className="flex-grow overflow-y-auto">
         <RouteList />
       </div>
     </>

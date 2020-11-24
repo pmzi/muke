@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import arrayMove from 'array-move';
 import cloneDeep from 'lodash.clonedeep';
 import PropTypes from 'prop-types';
@@ -17,41 +17,25 @@ function findParent(parent, clonedItems) {
   return null;
 }
 
-export default function RouteListMenu({ goToRoute }) {
-  const [items, setItems] = useState([{
-    id: 1,
-    title: 'salam1',
-    children: [
-      {
-        id: 11,
-        text: 'sub11',
-      },
-      {
-        onClick: goToRoute,
-        id: 22,
-        text: 'sub22',
-      },
-    ],
-  },
-  {
-    onClick: goToRoute,
-    id: 2,
-    text: 'salam2',
-  }, {
-    id: 3,
-    text: 'salam3',
-  }]);
+function changePosition({
+  oldIndex, newIndex, parent, items,
+}) {
+  if (!parent) {
+    return arrayMove(items, oldIndex, newIndex);
+  }
 
+  const clonedItems = cloneDeep(items);
+  const parentObject = findParent(parent, clonedItems);
+  parentObject.children = arrayMove(parentObject.children, oldIndex, newIndex);
+  return clonedItems;
+}
+
+export default function RouteListMenu({ items, onItemsChanged }) {
   function onSortChange(parent, { oldIndex, newIndex }) {
-    if (!parent) {
-      setItems(arrayMove(items, oldIndex, newIndex));
-      return;
-    }
-
-    const clonedItems = cloneDeep(items);
-    const parentObject = findParent(parent, clonedItems);
-    parentObject.children = arrayMove(parentObject.children, oldIndex, newIndex);
-    setItems(clonedItems);
+    const newItems = changePosition({
+      oldIndex, newIndex, parent, items,
+    });
+    onItemsChanged({ parent, oldIndex, newIndex }, newItems);
   }
 
   return (
@@ -64,5 +48,6 @@ export default function RouteListMenu({ goToRoute }) {
 }
 
 RouteListMenu.propTypes = {
-  goToRoute: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onItemsChanged: PropTypes.func.isRequired,
 };

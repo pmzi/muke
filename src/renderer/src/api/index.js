@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as workspace } from './workspace';
+export { default as routes } from './routes';
