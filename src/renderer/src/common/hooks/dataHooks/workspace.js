@@ -21,3 +21,21 @@ export function useGetWorkspaces(options) {
 export function useGetWorkspaceInfo(id, options) {
   return useQuery([GET_WORKSPACE, id], () => workspace.getWorkspaceInfo(id), options);
 }
+
+export function useDeleteWorkspace(id, options) {
+  return useMutation(workspace.deleteWorkspace, {
+    onSuccess: () => {
+      queryCache.setQueryData(
+        GET_ALL_WORKSPACES,
+        (oldData) => oldData.filter(({ id: wId }) => Number(id) !== wId),
+      );
+      queryCache.removeQueries(
+        [GET_WORKSPACE, id],
+        {
+          exact: true,
+        },
+      );
+    },
+    ...options,
+  });
+}

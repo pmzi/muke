@@ -1,5 +1,6 @@
 export const BASE_URL = window.location.origin;
 
+export const HOME = '/';
 export const WORKSPACE = (id) => `/workspace/${id}`;
 
 export const ROUTE = ({

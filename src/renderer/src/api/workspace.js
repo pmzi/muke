@@ -32,8 +32,20 @@ function getWorkspaceInfo(id) {
   // return dispatch(GET_WORKSPACE);
 }
 
+function deleteWorkspace(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        id,
+      });
+    }, 1500);
+  });
+  // return dispatch(DELETE_WORKSPACE);
+}
+
 export default {
   createWorkspace,
   getAllWorkspaces,
   getWorkspaceInfo,
+  deleteWorkspace,
 };
