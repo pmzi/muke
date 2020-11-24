@@ -26,6 +26,7 @@ function getWorkspaceInfo(id) {
         address: 'localhost',
         proxy: 'http://proxy.to',
         port: 80,
+        state: 'paused',
       });
     }, 1500);
   });
@@ -43,9 +44,22 @@ function deleteWorkspace(id) {
   // return dispatch(DELETE_WORKSPACE);
 }
 
+function changeWorkspaceState({ id, state }) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        id,
+        state,
+      });
+    }, 1500);
+  });
+  // return dispatch(DELETE_WORKSPACE);
+}
+
 export default {
   createWorkspace,
   getAllWorkspaces,
   getWorkspaceInfo,
   deleteWorkspace,
+  changeWorkspaceState,
 };

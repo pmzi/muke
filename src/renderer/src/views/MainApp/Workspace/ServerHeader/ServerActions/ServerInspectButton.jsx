@@ -5,6 +5,7 @@ import { Button } from 'antd';
 
 import { openModalSubWindow } from '@/common/utilities/window';
 import { INSPECT } from '@common/constants/urls';
+import { workspaceState } from '@common/constants/serverRelated';
 
 export default function ServerInspectButton({ serverStatus, className }) {
   const disabled = serverStatus !== 'running';
@@ -26,7 +27,7 @@ export default function ServerInspectButton({ serverStatus, className }) {
 }
 
 ServerInspectButton.propTypes = {
-  serverStatus: PropTypes.oneOf(['running', 'stopped', 'error']).isRequired,
+  serverStatus: PropTypes.oneOf(Object.values(workspaceState)).isRequired,
   className: PropTypes.string,
 };
 

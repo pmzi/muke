@@ -3,7 +3,9 @@ import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 
-export default function ServerActions({ serverStatus, startServer, pauseServer }) {
+import { workspaceState } from '@common/constants/serverRelated';
+
+export default function ServerAction({ serverStatus, startServer, pauseServer }) {
   const paused = serverStatus !== 'running';
   const actionIcon = paused
     ? <CaretRightOutlined onClick={startServer} className="text-green-600 select-none text-3xl" />
@@ -24,8 +26,8 @@ export default function ServerActions({ serverStatus, startServer, pauseServer }
   );
 }
 
-ServerActions.propTypes = {
-  serverStatus: PropTypes.oneOf(['running', 'stopped', 'error']).isRequired,
+ServerAction.propTypes = {
+  serverStatus: PropTypes.oneOf(Object.values(workspaceState)).isRequired,
   startServer: PropTypes.func.isRequired,
   pauseServer: PropTypes.func.isRequired,
 };
