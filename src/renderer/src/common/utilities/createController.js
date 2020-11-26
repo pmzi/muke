@@ -1,6 +1,12 @@
+import PropTypes from 'prop-types';
+
+function capitalizeFirstChar(value) {
+  const valueArray = value.split('');
+  return `${valueArray.shift().toUpperCase()}${valueArray.join('')}`;
+}
+
 export default function createController(name) {
-  const nameArray = name.split('');
-  const capitalizedFirstCharName = `${nameArray.shift().toUpperCase()}${nameArray.join('')}`;
+  const firstCharCapitalizedName = capitalizeFirstChar(name);
 
   let listeners = [];
 
@@ -8,11 +14,19 @@ export default function createController(name) {
     [name]() {
       listeners.forEach((listener) => listener());
     },
-    [`on${capitalizedFirstCharName}`](listener) {
+    [`on${firstCharCapitalizedName}`](listener) {
       listeners.push(listener);
     },
-    [`removeOn${capitalizedFirstCharName}`](listener) {
+    [`removeOn${firstCharCapitalizedName}`](listener) {
       listeners = listeners.filter((insideListener) => listener !== insideListener);
     },
   };
+}
+
+export function controllerPropType(name) {
+  const firstCharCapitalizedName = capitalizeFirstChar(name);
+  return PropTypes.shape({
+    [`on${firstCharCapitalizedName}`]: PropTypes.func.isRequired,
+    [`removeOn${firstCharCapitalizedName}`]: PropTypes.func.isRequired,
+  });
 }
