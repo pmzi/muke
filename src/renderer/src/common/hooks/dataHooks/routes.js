@@ -1,9 +1,20 @@
+import cloneDeep from 'lodash.clonedeep';
 import { useMutation, useQuery, queryCache } from '@common/hooks/dataHandlerHooks';
 import { routes } from '@/api';
 import { GET_ROUTES } from '@common/constants/queries';
 
 export function useGetRoutes(id, options) {
   return useQuery(GET_ROUTES, () => routes.getAllRoutes(id), options);
+}
+export function useGetRouteGroups(id, options) {
+  const returnedFromQuery = useGetRoutes(id, options);
+  if (returnedFromQuery.data) {
+    return {
+      ...returnedFromQuery,
+      data: returnedFromQuery.data.filter((route) => Array.isArray(route.children)),
+    };
+  }
+  return returnedFromQuery;
 }
 
 export function useChangeRoutesOrders(options) {
@@ -16,8 +27,9 @@ export function useAddRoute(options) {
       queryCache.setQueryData(
         GET_ROUTES,
         (oldData) => {
+          const newData = cloneDeep(oldData);
           if (parent) {
-            return oldData.map((route) => {
+            const rs = newData.map((route) => {
               if (route.children && route.id === parent) {
                 route.children.push({
                   id, text,
@@ -25,9 +37,10 @@ export function useAddRoute(options) {
               }
               return route;
             });
+            return rs;
           }
           return [
-            ...oldData,
+            ...newData,
             {
               id, text,
             },

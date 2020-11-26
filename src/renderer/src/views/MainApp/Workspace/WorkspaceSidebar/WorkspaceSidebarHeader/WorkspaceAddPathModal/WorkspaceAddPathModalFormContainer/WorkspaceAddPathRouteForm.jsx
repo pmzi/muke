@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Form, Radio, Input, Select,
@@ -7,7 +8,7 @@ import { useForm } from 'antd/lib/form/Form';
 
 import { controllerPropType } from '@common/utilities/createController';
 import notify from '@services/notify';
-import { useAddRoute } from '@common/hooks/dataHooks';
+import { useAddRoute, useGetRouteGroups } from '@common/hooks/dataHooks';
 
 const { Option } = Select;
 
@@ -32,9 +33,11 @@ const initialValues = {
 export default function WorkspaceAddPathRouteForm({
   onFinish, submitController, onLoadingChange, resetController,
 }) {
+  const { workspace } = useParams();
   const [form] = useForm();
   const [addRoute] = useAddRoute();
   const [values, setValues] = useState(initialValues);
+  const { data: routeGroups, isLoading: isLoadingRouteGroups } = useGetRouteGroups(workspace);
 
   useEffect(() => {
     const onSubmit = () => {
@@ -107,15 +110,19 @@ export default function WorkspaceAddPathRouteForm({
     </Select>
   );
 
+  const routeGroupsOptions = isLoadingRouteGroups ? null : routeGroups.map(
+    (gp) => <Option key={gp.id} value={gp.id}>{gp.title}</Option>,
+  );
+
   return (
     <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={initialValues}>
       <Form.Item name="name" label="Name">
         <Input placeholder="Login" />
       </Form.Item>
       <Form.Item name="parent" label="Parent">
-        <Select>
+        <Select loading={isLoadingRouteGroups}>
           <Option disabled value="">None</Option>
-          <Option value="parent1">Parent 1</Option>
+          {routeGroupsOptions}
         </Select>
       </Form.Item>
       <Form.Item name="path" label="Path">
