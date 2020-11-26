@@ -1,33 +1,48 @@
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import PropTypes from 'prop-types';
-import { useForm } from 'antd/lib/form/Form';
 
 import createController from '@common/utilities/createController';
 import WorkspaceAddPathModalForm from './WorkspaceAddPathModalFormContainer';
 
 export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
-  const [form] = useForm();
   const [submitController] = useState(createController('submit'));
+  const [loading, setLoading] = useState(false);
+
+  // TODO: add resetController and cancelController
 
   function handleCancel() {
-    form.resetFields();
+    setLoading(false);
     onVisibilityChange(false);
   }
+
   function handleOk() {
-    // async action
-    form.submit();
-    onVisibilityChange(true);
+    submitController.submit();
   }
 
   function handleOnFinish() {
-    // console.log(fields);
     onVisibilityChange(false);
   }
 
   return (
-    <Modal visible={show} onCancel={handleCancel} onOk={handleOk} title="Add Route/Group">
-      <WorkspaceAddPathModalForm submitController={submitController} onFinish={handleOnFinish} />
+    <Modal
+      visible={show}
+      onCancel={handleCancel}
+      title="Add Route/Group"
+      footer={[
+        <Button key="back" onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+          Save
+        </Button>,
+      ]}
+    >
+      <WorkspaceAddPathModalForm
+        submitController={submitController}
+        onFinish={handleOnFinish}
+        onLoadingChange={setLoading}
+      />
     </Modal>
   );
 }

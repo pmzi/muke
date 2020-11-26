@@ -16,7 +16,7 @@ const matchTypeOptions = [
   },
 ];
 
-export default function WorkspaceAddPathRouteForm({ onFinish, submitController }) {
+export default function WorkspaceAddPathRouteForm({ onFinish, submitController, onLoadingChange }) {
   const [form] = useForm();
   const [values, setValues] = useState({
     routeName: '',
@@ -35,6 +35,13 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController }
 
     return () => submitController.removeOnSubmit(onSubmit);
   }, []);
+
+  function submitFormToServer() {
+    // Async action
+    // onLoadingChange(true);
+    onLoadingChange(false);
+    onFinish();
+  }
 
   function handleChange(changedValues) {
     setValues((data) => ({
@@ -78,7 +85,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController }
   );
 
   return (
-    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={onFinish} initialValues={values}>
+    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={values}>
       <Form.Item name="routeName" label="Name">
         <Input placeholder="Login" />
       </Form.Item>
@@ -100,6 +107,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController }
 
 WorkspaceAddPathRouteForm.propTypes = {
   onFinish: PropTypes.func.isRequired,
+  onLoadingChange: PropTypes.func.isRequired,
   submitController: PropTypes.shape({
     onSubmit: PropTypes.func.isRequired,
     removeOnSubmit: PropTypes.func.isRequired,

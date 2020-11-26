@@ -16,14 +16,16 @@ const typeOptions = [
   },
 ];
 
-export default function WorkspaceAddPathModalFormContainer({ submitController, onFinish }) {
+export default function WorkspaceAddPathModalFormContainer(
+  { submitController, onFinish, onLoadingChange },
+) {
   const [type, setType] = useState('route');
 
   function handleTypeChange({ target: { value } }) {
     setType(value);
   }
 
-  const propsToPassToForm = { submitController, onFinish };
+  const propsToPassToForm = { submitController, onFinish, onLoadingChange };
 
   // eslint-disable-next-line react/jsx-props-no-spreading
   const formToShow = type === 'route' ? <WorkspaceAddPathRouteForm {...propsToPassToForm} /> : <WorkspaceAddPathGroupForm {...propsToPassToForm} />;
@@ -41,6 +43,7 @@ export default function WorkspaceAddPathModalFormContainer({ submitController, o
 
 WorkspaceAddPathModalFormContainer.propTypes = {
   onFinish: PropTypes.func.isRequired,
+  onLoadingChange: PropTypes.func.isRequired,
   submitController: PropTypes.shape({
     onSubmit: PropTypes.func.isRequired,
     removeOnSubmit: PropTypes.func.isRequired,

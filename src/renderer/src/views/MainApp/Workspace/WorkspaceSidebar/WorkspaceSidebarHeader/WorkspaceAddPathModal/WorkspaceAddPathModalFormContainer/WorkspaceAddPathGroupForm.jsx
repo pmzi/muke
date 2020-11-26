@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
-export default function WorkspaceAddPathGroupForm({ onFinish, submitController }) {
+export default function WorkspaceAddPathGroupForm({ onFinish, submitController, onLoadingChange }) {
   const [form] = useForm();
   const [values, setValues] = useState({
     group: '',
@@ -20,6 +20,13 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController }
     return () => submitController.removeOnSubmit(onSubmit);
   }, []);
 
+  function submitFormToServer() {
+    // onLoadingChange(true);
+    // Async action
+    onLoadingChange(false);
+    onFinish();
+  }
+
   function handleChange(changedValues) {
     setValues((data) => ({
       ...data,
@@ -32,7 +39,7 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController }
   }
 
   return (
-    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={onFinish} initialValues={values}>
+    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={values}>
       <Form.Item name="group" label="Label">
         <Input placeholder="Authentication" />
       </Form.Item>
@@ -42,6 +49,7 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController }
 
 WorkspaceAddPathGroupForm.propTypes = {
   onFinish: PropTypes.func.isRequired,
+  onLoadingChange: PropTypes.func.isRequired,
   submitController: PropTypes.shape({
     onSubmit: PropTypes.func.isRequired,
     removeOnSubmit: PropTypes.func.isRequired,
