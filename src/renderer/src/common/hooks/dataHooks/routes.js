@@ -44,20 +44,12 @@ export function useAddRouteGroup(options) {
     onSuccess: ({ id, label: title }) => {
       queryCache.setQueryData(
         GET_ROUTES,
-        (oldData) => {
-          console.log([
-            ...oldData,
-            {
-              id, title, children: [],
-            },
-          ]);
-          return [
-            ...oldData,
-            {
-              id, title, children: [],
-            },
-          ];
-        },
+        (oldData) => [
+          ...oldData,
+          {
+            id, title, children: [],
+          },
+        ],
       );
     },
     ...options,
