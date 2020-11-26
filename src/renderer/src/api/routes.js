@@ -35,7 +35,27 @@ function changeRoutesOrders({ parent, oldIndex, newIndex }) {
   // return dispatch(CHANGE_ORDER_ROUTE_GROUP);
 }
 
+function addRoute({
+  name, parent = null, method, path, matchType, matchWith,
+}) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({
+      id: Math.random(), name, parent, method, path, matchType, matchWith,
+    }));
+  });
+  // return dispatch(CREATE_ROUTE);
+}
+
+function addRouteGroup(label) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({ id: 5, label }));
+  });
+  // return dispatch(CREATE_ROUTE_GROUP);
+}
+
 export default {
   getAllRoutes,
   changeRoutesOrders,
+  addRoute,
+  addRouteGroup,
 };
