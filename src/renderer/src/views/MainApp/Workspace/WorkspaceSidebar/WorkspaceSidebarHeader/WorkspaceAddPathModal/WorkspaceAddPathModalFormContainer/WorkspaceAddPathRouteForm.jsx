@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Form, Radio, Input, Select,
 } from 'antd';
+import { useForm } from 'antd/lib/form/Form';
 
 const { Option } = Select;
-
-const typeOptions = [
-  {
-    label: 'Group', value: 'group',
-  },
-  {
-    label: 'Route', value: 'route',
-  },
-];
 
 const matchTypeOptions = [
   {
@@ -25,16 +16,25 @@ const matchTypeOptions = [
   },
 ];
 
-export default function WorkspaceAddPathModalForm({ form, onFinish }) {
+export default function WorkspaceAddPathRouteForm({ onFinish, submitController }) {
+  const [form] = useForm();
   const [values, setValues] = useState({
-    type: 'route',
     routeName: '',
     route: '',
     routeType: 'path',
-    group: '',
     routeMethod: 'get',
     matchType: 'exact',
+    parentGroup: '',
   });
+
+  useEffect(() => {
+    const onSubmit = () => {
+      form.submit();
+    };
+    submitController.onSubmit(onSubmit);
+
+    return () => submitController.removeOnSubmit(onSubmit);
+  }, []);
 
   function handleChange(changedValues) {
     setValues((data) => ({
@@ -59,10 +59,6 @@ export default function WorkspaceAddPathModalForm({ form, onFinish }) {
     });
   }
 
-  function handleOnFinish() {
-    onFinish(values);
-  }
-
   const pathTypes = (
     <Select defaultValue={values.routeMethod} onChange={handlePathTypeChange}>
       <Select.Option value="get">GET</Select.Option>
@@ -81,14 +77,8 @@ export default function WorkspaceAddPathModalForm({ form, onFinish }) {
     </Select>
   );
 
-  const formGroupContent = (
-    <Form.Item name="group" label="Label">
-      <Input placeholder="Authentication" />
-    </Form.Item>
-  );
-
-  const formRouteContent = (
-    <>
+  return (
+    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={onFinish} initialValues={values}>
       <Form.Item name="routeName" label="Name">
         <Input placeholder="Login" />
       </Form.Item>
@@ -104,25 +94,14 @@ export default function WorkspaceAddPathModalForm({ form, onFinish }) {
       <Form.Item name="routeType" label="Match With">
         <Radio.Group options={matchTypeOptions} optionType="button" />
       </Form.Item>
-    </>
-  );
-
-  const contentToShow = values.type === 'route' ? formRouteContent : formGroupContent;
-
-  return (
-    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={handleOnFinish} initialValues={values}>
-      <Form.Item name="type" label="Type">
-        <Radio.Group options={typeOptions} optionType="button" />
-      </Form.Item>
-      { contentToShow }
     </Form>
   );
 }
 
-WorkspaceAddPathModalForm.propTypes = {
-  form: PropTypes.shape({
-    resetFields: PropTypes.func,
-    submit: PropTypes.func,
-  }).isRequired,
+WorkspaceAddPathRouteForm.propTypes = {
   onFinish: PropTypes.func.isRequired,
+  submitController: PropTypes.shape({
+    onSubmit: PropTypes.func.isRequired,
+    removeOnSubmit: PropTypes.func.isRequired,
+  }).isRequired,
 };

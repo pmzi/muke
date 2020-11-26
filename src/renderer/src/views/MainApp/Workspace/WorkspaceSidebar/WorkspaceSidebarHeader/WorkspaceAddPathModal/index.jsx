@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-
 import { useForm } from 'antd/lib/form/Form';
-import WorkspaceAddPathModalForm from './WorkspaceAddPathModalForm';
+
+import createController from '@common/utilities/createController';
+import WorkspaceAddPathModalForm from './WorkspaceAddPathModalFormContainer';
 
 export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
   const [form] = useForm();
+  const [submitController] = useState(createController('submit'));
 
   function handleCancel() {
     form.resetFields();
@@ -25,7 +27,7 @@ export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
 
   return (
     <Modal visible={show} onCancel={handleCancel} onOk={handleOk} title="Add Route/Group">
-      <WorkspaceAddPathModalForm form={form} onFinish={handleOnFinish} />
+      <WorkspaceAddPathModalForm submitController={submitController} onFinish={handleOnFinish} />
     </Modal>
   );
 }
