@@ -5,6 +5,9 @@ import {
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
+import notify from '@services/notify';
+import { useAddRoute } from '@common/hooks/dataHooks';
+
 const { Option } = Select;
 
 const matchTypeOptions = [
@@ -18,13 +21,14 @@ const matchTypeOptions = [
 
 export default function WorkspaceAddPathRouteForm({ onFinish, submitController, onLoadingChange }) {
   const [form] = useForm();
+  const [addRoute] = useAddRoute();
   const [values, setValues] = useState({
-    routeName: '',
-    route: '',
-    routeType: 'path',
-    routeMethod: 'get',
+    name: '',
+    path: '',
+    matchWith: 'path',
+    method: 'get',
     matchType: 'exact',
-    parentGroup: '',
+    parent: '',
   });
 
   useEffect(() => {
@@ -37,10 +41,15 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
   }, []);
 
   function submitFormToServer() {
-    // Async action
-    // onLoadingChange(true);
-    onLoadingChange(false);
-    onFinish();
+    onLoadingChange(true);
+    addRoute(values).then(() => {
+      onFinish();
+      notify.success('Route added!');
+    }).catch(({ message }) => {
+      notify.error(message);
+    }).finally(() => {
+      onLoadingChange(false);
+    });
   }
 
   function handleChange(changedValues) {
@@ -56,7 +65,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
 
   function handlePathTypeChange(value) {
     handleChange({
-      routeMethod: value,
+      method: value,
     });
   }
 
@@ -67,7 +76,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
   }
 
   const pathTypes = (
-    <Select defaultValue={values.routeMethod} onChange={handlePathTypeChange}>
+    <Select defaultValue={values.method} onChange={handlePathTypeChange}>
       <Select.Option value="get">GET</Select.Option>
       <Select.Option value="post">POST</Select.Option>
       <Select.Option value="put">PUT</Select.Option>
@@ -86,19 +95,19 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
 
   return (
     <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={values}>
-      <Form.Item name="routeName" label="Name">
+      <Form.Item name="name" label="Name">
         <Input placeholder="Login" />
       </Form.Item>
-      <Form.Item name="parentGroup" label="Parent">
+      <Form.Item name="parent" label="Parent">
         <Select defaultValue="none">
           <Option value="none">None</Option>
           <Option value="parent1">Parent 1</Option>
         </Select>
       </Form.Item>
-      <Form.Item name="route" label="Path">
+      <Form.Item name="path" label="Path">
         <Input addonBefore={pathTypes} addonAfter={pathMatchTypes} placeholder="/some-endpoint" />
       </Form.Item>
-      <Form.Item name="routeType" label="Match With">
+      <Form.Item name="matchWith" label="Match With">
         <Radio.Group options={matchTypeOptions} optionType="button" />
       </Form.Item>
     </Form>

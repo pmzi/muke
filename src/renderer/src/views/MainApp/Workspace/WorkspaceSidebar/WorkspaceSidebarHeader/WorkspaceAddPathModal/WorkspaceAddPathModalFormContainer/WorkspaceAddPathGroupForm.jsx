@@ -5,8 +5,12 @@ import {
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
+import notify from '@services/notify';
+import { useAddRouteGroup } from '@common/hooks/dataHooks';
+
 export default function WorkspaceAddPathGroupForm({ onFinish, submitController, onLoadingChange }) {
   const [form] = useForm();
+  const [addRouteGroup] = useAddRouteGroup();
   const [values, setValues] = useState({
     group: '',
   });
@@ -21,10 +25,15 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController, 
   }, []);
 
   function submitFormToServer() {
-    // onLoadingChange(true);
-    // Async action
-    onLoadingChange(false);
-    onFinish();
+    onLoadingChange(true);
+    addRouteGroup(values.group).then(() => {
+      onFinish();
+      notify.success('Route group added!');
+    }).catch(({ message }) => {
+      notify.error(message);
+    }).finally(() => {
+      onLoadingChange(false);
+    });
   }
 
   function handleChange(changedValues) {
