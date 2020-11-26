@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import { useForm } from 'antd/lib/form/Form';
 
+import { controllerPropType } from '@common/utilities/createController';
 import notify from '@services/notify';
 import { useAddRoute } from '@common/hooks/dataHooks';
 
@@ -19,25 +20,38 @@ const matchTypeOptions = [
   },
 ];
 
-export default function WorkspaceAddPathRouteForm({ onFinish, submitController, onLoadingChange }) {
+const initialValues = {
+  name: '',
+  path: '',
+  matchWith: 'path',
+  method: 'get',
+  matchType: 'exact',
+  parent: '',
+};
+
+export default function WorkspaceAddPathRouteForm({
+  onFinish, submitController, onLoadingChange, resetController,
+}) {
   const [form] = useForm();
   const [addRoute] = useAddRoute();
-  const [values, setValues] = useState({
-    name: '',
-    path: '',
-    matchWith: 'path',
-    method: 'get',
-    matchType: 'exact',
-    parent: '',
-  });
+  const [values, setValues] = useState(initialValues);
 
   useEffect(() => {
     const onSubmit = () => {
       form.submit();
     };
+
+    const onReset = () => {
+      form.resetFields();
+    };
     submitController.onSubmit(onSubmit);
 
-    return () => submitController.removeOnSubmit(onSubmit);
+    resetController.onReset(onReset);
+
+    return () => {
+      submitController.removeOnSubmit(onSubmit);
+      resetController.removeOnReset(onReset);
+    };
   }, []);
 
   function submitFormToServer() {
@@ -76,7 +90,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
   }
 
   const pathTypes = (
-    <Select defaultValue={values.method} onChange={handlePathTypeChange}>
+    <Select defaultValue={initialValues.method} onChange={handlePathTypeChange}>
       <Select.Option value="get">GET</Select.Option>
       <Select.Option value="post">POST</Select.Option>
       <Select.Option value="put">PUT</Select.Option>
@@ -86,7 +100,7 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
 
   );
   const pathMatchTypes = (
-    <Select defaultValue={values.matchType} onChange={handlePathMatchTypeChange}>
+    <Select defaultValue={initialValues.matchType} onChange={handlePathMatchTypeChange}>
       <Select.Option value="exact">Exact</Select.Option>
       <Select.Option value="contain">Contains</Select.Option>
       <Select.Option value="regex">RegEx</Select.Option>
@@ -94,13 +108,13 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
   );
 
   return (
-    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={values}>
+    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={initialValues}>
       <Form.Item name="name" label="Name">
         <Input placeholder="Login" />
       </Form.Item>
       <Form.Item name="parent" label="Parent">
-        <Select defaultValue="none">
-          <Option value="none">None</Option>
+        <Select>
+          <Option disabled value="">None</Option>
           <Option value="parent1">Parent 1</Option>
         </Select>
       </Form.Item>
@@ -117,8 +131,6 @@ export default function WorkspaceAddPathRouteForm({ onFinish, submitController, 
 WorkspaceAddPathRouteForm.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onLoadingChange: PropTypes.func.isRequired,
-  submitController: PropTypes.shape({
-    onSubmit: PropTypes.func.isRequired,
-    removeOnSubmit: PropTypes.func.isRequired,
-  }).isRequired,
+  submitController: controllerPropType('submit').isRequired,
+  resetController: controllerPropType('reset').isRequired,
 };

@@ -7,11 +7,13 @@ import WorkspaceAddPathModalForm from './WorkspaceAddPathModalFormContainer';
 
 export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
   const [submitController] = useState(createController('submit'));
+  const [resetController] = useState(createController('reset'));
   const [loading, setLoading] = useState(false);
 
-  // TODO: add resetController and cancelController
-
   function handleCancel() {
+    if (loading) return;
+
+    resetController.reset();
     setLoading(false);
     onVisibilityChange(false);
   }
@@ -21,6 +23,7 @@ export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
   }
 
   function handleOnFinish() {
+    resetController.reset();
     onVisibilityChange(false);
   }
 
@@ -30,16 +33,17 @@ export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
       onCancel={handleCancel}
       title="Add Route/Group"
       footer={[
-        <Button key="back" onClick={handleCancel}>
+        <Button disabled={loading} key="back" onClick={handleCancel}>
           Cancel
         </Button>,
-        <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+        <Button key="submit" type="primary" disabled={loading} loading={loading} onClick={handleOk}>
           Save
         </Button>,
       ]}
     >
       <WorkspaceAddPathModalForm
         submitController={submitController}
+        resetController={resetController}
         onFinish={handleOnFinish}
         onLoadingChange={setLoading}
       />

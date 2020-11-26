@@ -7,21 +7,35 @@ import { useForm } from 'antd/lib/form/Form';
 
 import notify from '@services/notify';
 import { useAddRouteGroup } from '@common/hooks/dataHooks';
+import { controllerPropType } from '@common/utilities/createController';
 
-export default function WorkspaceAddPathGroupForm({ onFinish, submitController, onLoadingChange }) {
+const initialValues = {
+  group: '',
+};
+
+export default function WorkspaceAddPathGroupForm({
+  onFinish, submitController, onLoadingChange, resetController,
+}) {
   const [form] = useForm();
   const [addRouteGroup] = useAddRouteGroup();
-  const [values, setValues] = useState({
-    group: '',
-  });
+  const [values, setValues] = useState(initialValues);
 
   useEffect(() => {
     const onSubmit = () => {
       form.submit();
     };
+
+    const onReset = () => {
+      form.resetFields();
+    };
     submitController.onSubmit(onSubmit);
 
-    return () => submitController.removeOnSubmit(onSubmit);
+    resetController.onReset(onReset);
+
+    return () => {
+      submitController.removeOnSubmit(onSubmit);
+      resetController.removeOnReset(onReset);
+    };
   }, []);
 
   function submitFormToServer() {
@@ -48,7 +62,7 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController, 
   }
 
   return (
-    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={values}>
+    <Form form={form} onValuesChange={handleValuesChange} layout="vertical" onFinish={submitFormToServer} initialValues={initialValues}>
       <Form.Item name="group" label="Label">
         <Input placeholder="Authentication" />
       </Form.Item>
@@ -59,8 +73,6 @@ export default function WorkspaceAddPathGroupForm({ onFinish, submitController, 
 WorkspaceAddPathGroupForm.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onLoadingChange: PropTypes.func.isRequired,
-  submitController: PropTypes.shape({
-    onSubmit: PropTypes.func.isRequired,
-    removeOnSubmit: PropTypes.func.isRequired,
-  }).isRequired,
+  submitController: controllerPropType('submit').isRequired,
+  resetController: controllerPropType('reset').isRequired,
 };

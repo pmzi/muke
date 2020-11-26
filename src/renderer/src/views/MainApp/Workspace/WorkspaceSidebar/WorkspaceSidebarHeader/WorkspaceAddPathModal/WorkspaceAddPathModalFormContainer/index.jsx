@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import {
   Radio,
 } from 'antd';
+
+import { controllerPropType } from '@common/utilities/createController';
 import WorkspaceAddPathRouteForm from './WorkspaceAddPathRouteForm';
 import WorkspaceAddPathGroupForm from './WorkspaceAddPathGroupForm';
 
@@ -17,7 +18,9 @@ const typeOptions = [
 ];
 
 export default function WorkspaceAddPathModalFormContainer(
-  { submitController, onFinish, onLoadingChange },
+  {
+    submitController, onFinish, onLoadingChange, resetController,
+  },
 ) {
   const [type, setType] = useState('route');
 
@@ -25,7 +28,9 @@ export default function WorkspaceAddPathModalFormContainer(
     setType(value);
   }
 
-  const propsToPassToForm = { submitController, onFinish, onLoadingChange };
+  const propsToPassToForm = {
+    submitController, onFinish, onLoadingChange, resetController,
+  };
 
   // eslint-disable-next-line react/jsx-props-no-spreading
   const formToShow = type === 'route' ? <WorkspaceAddPathRouteForm {...propsToPassToForm} /> : <WorkspaceAddPathGroupForm {...propsToPassToForm} />;
@@ -44,8 +49,6 @@ export default function WorkspaceAddPathModalFormContainer(
 WorkspaceAddPathModalFormContainer.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onLoadingChange: PropTypes.func.isRequired,
-  submitController: PropTypes.shape({
-    onSubmit: PropTypes.func.isRequired,
-    removeOnSubmit: PropTypes.func.isRequired,
-  }).isRequired,
+  submitController: controllerPropType('submit').isRequired,
+  resetController: controllerPropType('reset').isRequired,
 };
