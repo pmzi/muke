@@ -8,8 +8,8 @@ import SubMenu from './SubMenu';
 import MenuItem from './MenuItem';
 
 function MenuList({ onSortChange, items, ...menuProps }) {
-  const childrenComponents = items.map(({ children = [], id, ...props }, index) => {
-    if (children.length) {
+  const childrenComponents = items.map(({ children, id, ...props }, index) => {
+    if (Array.isArray(children)) {
       return (
         <SubMenu
           useDragHandle
