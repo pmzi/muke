@@ -30,7 +30,7 @@ function changePosition({
   return clonedItems;
 }
 
-export default function RouteListMenu({ items, onItemsChanged }) {
+export default function RouteListMenu({ items, onItemsChanged, onMenuClick }) {
   function onSortChange(parent, { oldIndex, newIndex }) {
     const newItems = changePosition({
       oldIndex, newIndex, parent, items,
@@ -40,6 +40,7 @@ export default function RouteListMenu({ items, onItemsChanged }) {
 
   return (
     <SortableMenu
+      onMenuClick={onMenuClick}
       mode="inline"
       onSortChange={onSortChange}
       items={items}
@@ -50,4 +51,5 @@ export default function RouteListMenu({ items, onItemsChanged }) {
 RouteListMenu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onItemsChanged: PropTypes.func.isRequired,
+  onMenuClick: PropTypes.func.isRequired,
 };

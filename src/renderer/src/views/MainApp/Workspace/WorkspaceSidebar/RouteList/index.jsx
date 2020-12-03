@@ -12,11 +12,11 @@ export default function RouteList() {
   const { data, isLoading } = useGetRoutes(workspace);
   const [changeRoutesOrders] = useChangeRoutesOrders();
 
-  const goToRoute = useCallback(() => {
+  const goToRoute = useCallback((id) => {
     history.push(ROUTE(
       {
         workspaceId: workspace,
-        routeId: 1,
+        routeId: id,
       },
     ));
   }, [workspace]);

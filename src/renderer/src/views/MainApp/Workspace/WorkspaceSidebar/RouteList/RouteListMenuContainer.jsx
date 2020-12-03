@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import RouteListMenu from './RouteListMenu';
-
-function transformRoutes(routes, onClick) {
-  return routes.map((route) => {
-    let newRoute = {};
-    if (route.children) {
-      newRoute.children = transformRoutes(route.children, onClick);
-    }
-
-    newRoute = {
-      ...route,
-      ...newRoute,
-      onClick,
-    };
-
-    return newRoute;
-  });
-}
 
 export default function RouteListMenuContainer({ goToRoute, items, onItemsChanged }) {
   const [internalItems, setInternalItems] = useState(items);
 
   useEffect(() => {
-    const transformedRoutes = transformRoutes(items, goToRoute);
-    setInternalItems(transformedRoutes);
+    setInternalItems(items);
   }, [items]);
+
+  const onMenuClick = useCallback(({ key: id }) => {
+    goToRoute(id);
+  }, [goToRoute]);
 
   function handleItemsChanged(changedDescription, newItems) {
     setInternalItems(newItems);
@@ -35,7 +21,11 @@ export default function RouteListMenuContainer({ goToRoute, items, onItemsChange
   }
 
   return (
-    <RouteListMenu items={internalItems} onItemsChanged={handleItemsChanged} />
+    <RouteListMenu
+      onMenuClick={onMenuClick}
+      items={internalItems}
+      onItemsChanged={handleItemsChanged}
+    />
   );
 }
 
