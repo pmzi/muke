@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Tag } from 'antd';
+
+import { REQUEST_METHODS } from '@common/constants/common';
 
 const requestTypeProperties = {
   GET: 'blue',
@@ -23,5 +24,5 @@ export default function RequestTag({ method }) {
 }
 
 RequestTag.propTypes = {
-  method: PropTypes.oneOf(['get', 'post', 'put', 'patch', 'delete']).isRequired,
+  method: PropTypes.oneOf(REQUEST_METHODS).isRequired,
 };
