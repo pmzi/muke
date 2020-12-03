@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Modal, Button } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -6,9 +6,11 @@ import createController from '@common/utilities/createController';
 import WorkspaceAddPathModalForm from './WorkspaceAddPathModalFormContainer';
 
 export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
-  const [submitController] = useState(createController('submit'));
-  const [resetController] = useState(createController('reset'));
+  const { current: submitController } = useRef(createController('submit'));
+  const { current: resetController } = useRef(createController('reset'));
   const [loading, setLoading] = useState(false);
+
+  console.log(submitController, resetController);
 
   function handleCancel() {
     if (loading) return;
