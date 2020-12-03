@@ -1,11 +1,11 @@
-export const THEMES = {
+const THEMES = {
   LIGHT: 'vs-light',
   DARK: 'vs-dark',
 };
 
-export const DEFAULT_THEME = THEMES.DARK;
+const DEFAULT_THEME = THEMES.DARK;
 
-export const LANGUAGES = {
+const LANGUAGES = {
   JSON: {
     text: 'JSON',
     value: 'json',
@@ -35,6 +35,15 @@ export const LANGUAGES = {
   },
 };
 
-export const DEFAULT_LANGUAGE = LANGUAGES.JSON;
+const LANGUAGES_VALUE_TO_OBJECT = {};
+Object.values(LANGUAGES).forEach((language) => {
+  LANGUAGES_VALUE_TO_OBJECT[language.value] = language;
+});
 
-export const THEME_STORAGE_KEY = 'editor/theme';
+const DEFAULT_LANGUAGE = LANGUAGES.JSON;
+
+const THEME_STORAGE_KEY = 'editor/theme';
+
+export {
+  LANGUAGES_VALUE_TO_OBJECT, DEFAULT_LANGUAGE, THEME_STORAGE_KEY, LANGUAGES, DEFAULT_THEME, THEMES,
+};

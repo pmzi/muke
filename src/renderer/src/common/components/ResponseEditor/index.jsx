@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
-import { write, read } from '@services/storage';
 
 import {
-  DEFAULT_LANGUAGE, DEFAULT_THEME, THEMES, THEME_STORAGE_KEY,
+  THEMES, LANGUAGES_VALUE_TO_OBJECT, DEFAULT_LANGUAGE, DEFAULT_THEME,
 } from './config';
 import Editor from './MonacoEditor';
 import ResponseEditorLanguageSelector from './ResponseEditorLanguageSelector';
 
-function persistTheme(theme) {
-  write(THEME_STORAGE_KEY, theme);
-}
-
-function getPersistedTheme() {
-  return read(THEME_STORAGE_KEY);
-}
-
-const INITIAL_THEME = getPersistedTheme() || DEFAULT_THEME;
-
-export default function RouteResponse() {
-  const [currentLanguage, setCurrentLanguage] = useState(DEFAULT_LANGUAGE);
-  const [currentTheme, setCurrentTheme] = useState(INITIAL_THEME);
-  const [value, setValue] = useState('');
-
-  useEffect(() => {
-    setValue(currentLanguage.code);
-  }, [currentLanguage]);
+export default function RouteResponse({
+  value, theme, language, changeSetting,
+}) {
+  function handleAnyValueChange({
+    value: changedValue = value,
+    theme: changedTheme = theme,
+    language: changedLanguage = language,
+  }) {
+    changeSetting({
+      value: changedValue,
+      theme: changedTheme,
+      language: changedLanguage,
+    });
+  }
 
   function toggleCurrentTheme() {
-    const theme = currentTheme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    const newTheme = theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
-    setCurrentTheme(theme);
-
-    persistTheme(theme);
+    handleAnyValueChange({ theme: newTheme });
   }
 
-  function handleValueChange(newVal) {
-    setValue(newVal);
+  function handleValueChange(newValue) {
+    handleAnyValueChange({ value: newValue });
   }
+
+  function handleLanguageChange(newLanguage) {
+    handleAnyValueChange({ language: newLanguage.value });
+  }
+
+  const languageObject = LANGUAGES_VALUE_TO_OBJECT[language];
 
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow overflow-hidden">
         <Editor
-          theme={currentTheme}
+          theme={theme}
           value={value}
           onValueChange={handleValueChange}
-          language={currentLanguage.value}
+          language={languageObject.value}
         />
       </div>
 
@@ -55,10 +55,24 @@ export default function RouteResponse() {
         <Button type="text" shape="circle" icon={<ClearOutlined className="text-white" onClick={toggleCurrentTheme} />} />
 
         <ResponseEditorLanguageSelector
-          currentLanguage={currentLanguage}
-          onChangeLanguage={setCurrentLanguage}
+          currentLanguage={languageObject}
+          onChangeLanguage={handleLanguageChange}
         />
       </footer>
     </div>
   );
 }
+
+RouteResponse.propTypes = {
+  theme: PropTypes.string,
+  language: PropTypes.string,
+  value: PropTypes.string,
+  changeSetting: PropTypes.func,
+};
+
+RouteResponse.defaultProps = {
+  theme: DEFAULT_THEME,
+  language: DEFAULT_LANGUAGE.value,
+  value: DEFAULT_LANGUAGE.code,
+  changeSetting: () => {},
+};
