@@ -57,6 +57,7 @@ function getRoute(id) {
   return new Promise((resolve) => {
     setTimeout(() => resolve({
       id,
+      active: true,
       headers: [{ key: 'test', value: 'testContent' }],
       response: { responseType: 'JSON', content: 'some json' },
       method: 'post',
@@ -64,6 +65,7 @@ function getRoute(id) {
       path: '/user/login',
       matchWith: 'URL',
       name: 'Login',
+      onDemandResponse: false,
     }), 2000);
   });
   // return dispatch(GET_ROUTE);

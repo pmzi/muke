@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Tabs } from 'antd';
 
+import { useGetRoute } from '@common/hooks/dataHooks';
 import TabTitle from '@/common/components/TabTitle';
 import ResponseEditor from '@common/components/ResponseEditor';
 import RouteGeneralSettings from './RouteGeneralSettings';
@@ -10,7 +11,10 @@ import RouteHeadersSettings from './RouteHeadersSettings';
 import './style.scss';
 
 export default function RouteSettings() {
-  const [onDemandResponse, setOnDemandResponse] = useState(false);
+  const { routeId } = useParams();
+  const { data, isLoading } = useGetRoute(routeId);
+
+  const onDemandResponse = isLoading || data.onDemandResponse;
 
   return (
     <Tabs className="RouteSettings h-full" defaultActiveKey="1" animated>
@@ -19,7 +23,7 @@ export default function RouteSettings() {
         key="1"
       >
         <div className="px-6">
-          <RouteGeneralSettings onDemandChanged={setOnDemandResponse} />
+          <RouteGeneralSettings />
         </div>
       </Tabs.TabPane>
       <Tabs.TabPane tab={<TabTitle title="Response Headers" />} key="2">

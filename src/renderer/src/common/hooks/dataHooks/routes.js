@@ -75,7 +75,7 @@ export function useGetRoute(id, options) {
 
 export function useEditRoute(options) {
   return useMutation(routes.editRoute, {
-    onSuccess: ({ id, ...newData }) => {
+    onMutate: ({ id, ...newData }) => {
       queryCache.setQueryData(
         [GET_ROUTE, id],
         (oldData) => ({

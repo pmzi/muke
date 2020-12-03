@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import { Form, Checkbox } from 'antd';
 
-export default function RouteGeneralSettings({ onDemandChanged }) {
-  const [values, setValues] = useState({
-    active: true,
-    onDemandResponse: false,
-  });
+import { useEditRoute } from '@common/hooks/dataHooks';
 
-  useEffect(() => {
-    onDemandChanged(values.onDemandResponse);
-  }, [values.onDemandResponse]);
+export default function RouteGeneralSettings({ data }) {
+  const { routeId } = useParams();
+  const [editRoute] = useEditRoute();
 
-  function handleValuesChange(changedValues, allValues) {
-    setValues(allValues);
+  function handleValuesChange(changedValues) {
+    editRoute({ ...changedValues, id: routeId });
   }
 
   return (
     <Form
       name="routeGeneralForm"
-      initialValues={values}
+      initialValues={data}
       onValuesChange={handleValuesChange}
     >
       <Form.Item
@@ -39,5 +36,8 @@ export default function RouteGeneralSettings({ onDemandChanged }) {
 }
 
 RouteGeneralSettings.propTypes = {
-  onDemandChanged: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    active: PropTypes.bool.isRequired,
+    onDemandResponse: PropTypes.bool.isRequired,
+  }).isRequired,
 };
