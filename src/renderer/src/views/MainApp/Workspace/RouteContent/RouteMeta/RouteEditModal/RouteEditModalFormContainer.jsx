@@ -44,8 +44,6 @@ export default function RouteEditModalFormContainer({
     parent,
   };
 
-  console.log(initialValues);
-
   return (
     <RouteForm
       onSubmitToServer={submitFormToServer}
