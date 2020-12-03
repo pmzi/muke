@@ -69,10 +69,21 @@ function getRoute(id) {
   // return dispatch(GET_ROUTE);
 }
 
+function editRoute({ id, ...routeProps }) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({
+      id,
+      ...routeProps,
+    }), 2000);
+  });
+  // return dispatch(GET_ROUTE);
+}
+
 export default {
   getAllRoutes,
   changeRoutesOrders,
   addRoute,
   addRouteGroup,
   getRoute,
+  editRoute,
 };

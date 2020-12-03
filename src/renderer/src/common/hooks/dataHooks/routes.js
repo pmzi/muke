@@ -72,3 +72,18 @@ export function useAddRouteGroup(options) {
 export function useGetRoute(id, options) {
   return useQuery([GET_ROUTE, id], () => routes.getRoute(id), options);
 }
+
+export function useEditRoute(options) {
+  return useMutation(routes.editRoute, {
+    onSuccess: ({ id, ...newData }) => {
+      queryCache.setQueryData(
+        [GET_ROUTE, id],
+        (oldData) => ({
+          ...oldData,
+          ...newData,
+        }),
+      );
+    },
+    ...options,
+  });
+}
