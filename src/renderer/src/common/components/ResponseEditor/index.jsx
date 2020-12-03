@@ -37,7 +37,7 @@ export default function RouteResponse({
   }, [values]);
 
   function toggleCurrentTheme() {
-    const newTheme = values.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    const newTheme = theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
     persistTheme(newTheme);
 
