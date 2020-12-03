@@ -6,7 +6,7 @@ import notify from '@services/notify';
 import { useAddRoute } from '@common/hooks/dataHooks';
 import RouteForm from '@common/components/RouteForm';
 
-export default function WorkspaceAddPathRouteForm({
+export default function WorkspaceAddPathRouteFormContainer({
   onFinish, submitController, onLoadingChange, resetController,
 }) {
   const [addRoute] = useAddRoute();
@@ -23,8 +23,6 @@ export default function WorkspaceAddPathRouteForm({
     });
   }
 
-  console.log(submitController, resetController, 'ffff');
-
   return (
     <RouteForm
       onSubmitToServer={submitFormToServer}
@@ -34,7 +32,7 @@ export default function WorkspaceAddPathRouteForm({
   );
 }
 
-WorkspaceAddPathRouteForm.propTypes = {
+WorkspaceAddPathRouteFormContainer.propTypes = {
   onFinish: PropTypes.func.isRequired,
   onLoadingChange: PropTypes.func.isRequired,
   submitController: controllerPropType('submit').isRequired,

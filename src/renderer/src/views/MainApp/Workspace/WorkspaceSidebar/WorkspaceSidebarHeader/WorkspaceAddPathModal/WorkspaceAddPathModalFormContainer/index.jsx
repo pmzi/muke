@@ -5,7 +5,7 @@ import {
 } from 'antd';
 
 import { controllerPropType } from '@common/utilities/createController';
-import WorkspaceAddPathRouteForm from './WorkspaceAddPathRouteForm';
+import WorkspaceAddPathRouteFormContainer from './WorkspaceAddPathRouteFormContainer';
 import WorkspaceAddPathGroupForm from './WorkspaceAddPathGroupForm';
 
 const typeOptions = [
@@ -33,7 +33,7 @@ export default function WorkspaceAddPathModalFormContainer(
   };
 
   // eslint-disable-next-line react/jsx-props-no-spreading
-  const formToShow = type === 'route' ? <WorkspaceAddPathRouteForm {...propsToPassToForm} /> : <WorkspaceAddPathGroupForm {...propsToPassToForm} />;
+  const formToShow = type === 'route' ? <WorkspaceAddPathRouteFormContainer {...propsToPassToForm} /> : <WorkspaceAddPathGroupForm {...propsToPassToForm} />;
 
   return (
     <>
