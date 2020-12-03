@@ -10,8 +10,6 @@ export default function WorkspaceAddPathModal({ show, onVisibilityChange }) {
   const { current: resetController } = useRef(createController('reset'));
   const [loading, setLoading] = useState(false);
 
-  console.log(submitController, resetController);
-
   function handleCancel() {
     if (loading) return;
 
