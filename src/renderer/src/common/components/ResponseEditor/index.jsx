@@ -18,7 +18,7 @@ export default function RouteResponse({
     language,
   });
 
-  const languageObject = LANGUAGES_VALUE_TO_OBJECT[values.language];
+  const languageObject = LANGUAGES_VALUE_TO_OBJECT[values.language] || DEFAULT_LANGUAGE;
 
   function handleAnyValueChange({
     value: changedValue = values.value,

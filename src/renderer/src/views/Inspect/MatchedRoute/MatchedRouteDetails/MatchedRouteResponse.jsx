@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import Prism from '@common/components/Prism';
 import KeyValueItems from '@common/components/KeyValueItems';
-import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks/timeline';
+import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks';
 
 const { Panel } = Collapse;
 

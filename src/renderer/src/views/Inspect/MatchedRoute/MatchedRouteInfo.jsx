@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Descriptions, Skeleton, Tag } from 'antd';
 
 import RequestTag from '@/common/components/RequestTag';
-import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks/timeline';
+import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks';
 import { requestStatusColorMap } from '@common/constants/colorMaps';
 
 export default function () {

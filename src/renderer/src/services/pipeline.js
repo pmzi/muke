@@ -6,6 +6,11 @@ function on(channel, cb) {
   return () => ipcRenderer.removeListener(channel, cb);
 }
 
+function reply(channel, data) {
+  ipcRenderer.send(channel, data);
+}
+
 export default {
   on,
+  reply,
 };

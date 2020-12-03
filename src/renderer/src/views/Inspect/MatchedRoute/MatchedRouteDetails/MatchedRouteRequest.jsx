@@ -3,7 +3,7 @@ import { Skeleton } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import RequestDetails from '@common/components/RequestDetails';
-import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks/timeline';
+import { useGetTimelineRequestDetails } from '@common/hooks/dataHooks';
 
 export default function MatchedRouteRequest() {
   const { requestId } = useParams();

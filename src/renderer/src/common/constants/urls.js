@@ -13,3 +13,5 @@ export const INSPECT_REQUEST_DETAIL = ({
   serverId,
   id,
 }) => `${INSPECT(serverId)}/request/${id}`;
+
+export const ON_DEMAND_RESPONSE = (id) => `/on-demand/${id}`;
