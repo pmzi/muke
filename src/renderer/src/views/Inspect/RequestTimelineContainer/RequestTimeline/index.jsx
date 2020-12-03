@@ -21,9 +21,9 @@ export default function RequestTimeline({ className, items }) {
   }
 
   const timelineItemsList = items.map((item) => {
-    const isPending = item.status === requestState.PENDING;
-    const clickableClass = isPending ? '' : 'cursor-pointer';
-    const onClick = isPending ? null : () => showDetails(item.id);
+    const requestHasDetails = !(item.status in [requestState.PENDING, requestState.PROXY]);
+    const clickableClass = requestHasDetails ? 'cursor-pointer' : '';
+    const onClick = requestHasDetails ? () => showDetails(item.id) : null;
 
     return (
       <Timeline.Item

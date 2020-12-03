@@ -5,4 +5,5 @@ export const requestStatusColorMap = {
   [requestState.SUCCESS]: 'green',
   [requestState.FAIL]: 'red',
   [requestState.PENDING]: 'gray',
+  [requestState.PROXY]: 'blue',
 };

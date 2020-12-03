@@ -8,4 +8,5 @@ export const requestState = {
   SUCCESS: 'success',
   FAIL: 'fail',
   PENDING: 'pending',
+  PROXY: 'proxied',
 };
