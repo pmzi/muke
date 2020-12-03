@@ -43,7 +43,7 @@ export default function Editor({
   }, []);
 
   useEffect(() => {
-    editorModel.current.setValue(value);
+    if (editorModel.current.getValue() !== value) editorModel.current.setValue(value);
   }, [value]);
 
   useEffect(() => {

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
 
 import {
-  THEMES, LANGUAGES_VALUE_TO_OBJECT, DEFAULT_LANGUAGE, DEFAULT_THEME,
+  THEMES, DEFAULT_LANGUAGE, DEFAULT_THEME, LANGUAGES_VALUE_TO_OBJECT,
 } from './config';
 import Editor from './MonacoEditor';
 import ResponseEditorLanguageSelector from './ResponseEditorLanguageSelector';
@@ -12,20 +12,40 @@ import ResponseEditorLanguageSelector from './ResponseEditorLanguageSelector';
 export default function RouteResponse({
   value, theme, language, changeSetting,
 }) {
+  const [values, setValues] = useState({
+    value,
+    theme,
+    language,
+  });
+
+  const languageObject = LANGUAGES_VALUE_TO_OBJECT[values.language];
+
   function handleAnyValueChange({
-    value: changedValue = value,
-    theme: changedTheme = theme,
-    language: changedLanguage = language,
+    value: changedValue = values.value,
+    theme: changedTheme = values.theme,
+    language: changedLanguage = values.language,
   }) {
-    changeSetting({
+    const finalChangedValues = {
       value: changedValue,
       theme: changedTheme,
       language: changedLanguage,
-    });
+    };
+
+    changeSetting(finalChangedValues);
+
+    setValues(finalChangedValues);
   }
 
+  useEffect(() => {
+    if (!values.value) {
+      handleAnyValueChange({
+        value: languageObject.code,
+      });
+    }
+  }, [values.language]);
+
   function toggleCurrentTheme() {
-    const newTheme = theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
+    const newTheme = values.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
     handleAnyValueChange({ theme: newTheme });
   }
@@ -38,16 +58,12 @@ export default function RouteResponse({
     handleAnyValueChange({ language: newLanguage.value });
   }
 
-  const languageObject = LANGUAGES_VALUE_TO_OBJECT[language];
-
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow overflow-hidden">
         <Editor
-          theme={theme}
-          value={value}
+          value={values.value}
           onValueChange={handleValueChange}
-          language={languageObject.value}
         />
       </div>
 

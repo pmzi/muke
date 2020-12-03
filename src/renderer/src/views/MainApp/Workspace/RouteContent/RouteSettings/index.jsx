@@ -4,7 +4,7 @@ import { Tabs } from 'antd';
 
 import { useGetRoute } from '@common/hooks/dataHooks';
 import TabTitle from '@/common/components/TabTitle';
-import ResponseEditor from '@common/components/ResponseEditor';
+import RouteResponse from './RouteResponse';
 import RouteGeneralSettings from './RouteGeneralSettings';
 import RouteHeadersSettings from './RouteHeadersSettings';
 
@@ -32,7 +32,7 @@ export default function RouteSettings() {
         </div>
       </Tabs.TabPane>
       <Tabs.TabPane className="h-full" disabled={onDemandResponse} tab={<TabTitle title="Response" />} key="3">
-        <ResponseEditor />
+        <RouteResponse />
       </Tabs.TabPane>
     </Tabs>
   );

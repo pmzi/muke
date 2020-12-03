@@ -59,7 +59,7 @@ function getRoute(id) {
       id,
       active: true,
       headers: [{ key: 'test', value: 'testContent' }],
-      response: { responseType: 'JSON', content: 'some json' },
+      response: { language: 'json', value: 'some json' },
       method: 'post',
       matchType: 'contains',
       path: '/user/login',
