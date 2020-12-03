@@ -6,13 +6,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { INSPECT_REQUEST_DETAIL } from '@common/constants/urls';
 import { REQUEST_METHODS } from '@common/constants/common';
 import { requestState } from '@common/constants/serverRelated';
+import { requestStatusColorMap } from '@common/constants/colorMaps';
 import RequestTimelineItemContent from './RequestTimelineItemContent';
-
-const requestStatusColorMap = {
-  [requestState.SUCCESS]: 'green',
-  [requestState.FAIL]: 'red',
-  [requestState.PENDING]: 'gray',
-};
 
 export default function RequestTimeline({ className, items }) {
   const history = useHistory();

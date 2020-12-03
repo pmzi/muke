@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import {
   Form, Input, Button,
@@ -8,6 +7,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 import { required } from '@common/utilities/formValidations';
 import { useEditRoute } from '@common/hooks/dataHooks';
+import { headersPropTypes } from '@common/utilities/propTypes';
 
 export default function RouteHeadersSettingsListForm({ headers }) {
   const { routeId } = useParams();
@@ -79,8 +79,5 @@ export default function RouteHeadersSettingsListForm({ headers }) {
 }
 
 RouteHeadersSettingsListForm.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-  })).isRequired,
+  headers: headersPropTypes.isRequired,
 };
