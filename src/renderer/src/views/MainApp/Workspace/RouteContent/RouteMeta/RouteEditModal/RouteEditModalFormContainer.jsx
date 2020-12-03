@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import notify from '@services/notify';
+import { Skeleton } from 'antd';
 
 import { controllerPropType } from '@common/utilities/createController';
 import { useEditRoute, useGetRoute } from '@common/hooks/dataHooks';
@@ -12,7 +13,9 @@ export default function RouteEditModalFormContainer({
 }) {
   const { routeId } = useParams();
   const [editRoute] = useEditRoute();
-  const { data } = useGetRoute(routeId);
+  const { data, isLoading } = useGetRoute(routeId);
+
+  if (isLoading) return <Skeleton title={false} active />;
 
   function submitFormToServer(values) {
     onLoadingChange(true);
