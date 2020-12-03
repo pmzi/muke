@@ -20,7 +20,7 @@ const matchTypeOptions = [
   },
 ];
 
-const initialValues = {
+const defaultInitialValues = {
   name: '',
   path: '',
   matchWith: 'path',
@@ -30,7 +30,7 @@ const initialValues = {
 };
 
 export default function RouteForm({
-  submitController, onSubmitToServer, resetController,
+  submitController, onSubmitToServer, resetController, initialValues,
 }) {
   const { workspace } = useParams();
   const [form] = useForm();
@@ -130,4 +130,16 @@ RouteForm.propTypes = {
   onSubmitToServer: PropTypes.func.isRequired,
   submitController: controllerPropType('submit').isRequired,
   resetController: controllerPropType('reset').isRequired,
+  initialValues: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    matchWith: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    matchType: PropTypes.string.isRequired,
+    parent: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  }),
+};
+
+RouteForm.defaultProps = {
+  initialValues: defaultInitialValues,
 };
