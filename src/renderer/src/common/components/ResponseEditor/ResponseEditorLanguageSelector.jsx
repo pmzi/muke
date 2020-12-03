@@ -14,14 +14,13 @@ export default function RouteResponseLanguageSelector({ currentLanguage, onChang
       <Menu.Item
         key={language.value}
         className={`hover:bg-gray-400${ifActiveClass}`}
-        onClick={() => onChangeLanguage(language)}
       >
         {language.text}
       </Menu.Item>
     );
   });
   const menu = (
-    <Menu>
+    <Menu onClick={({ key }) => onChangeLanguage(key)}>
       {menuItems}
     </Menu>
   );

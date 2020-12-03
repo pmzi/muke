@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
@@ -8,60 +8,62 @@ import {
 } from './config';
 import Editor from './MonacoEditor';
 import ResponseEditorLanguageSelector from './ResponseEditorLanguageSelector';
+import { persistTheme, readTheme } from './themeStorage';
 
 export default function RouteResponse({
-  value, theme, language, changeSetting,
+  value, changeSetting, language,
 }) {
   const [values, setValues] = useState({
     value,
-    theme,
     language,
   });
+  const [theme, setTheme] = useState(readTheme() || DEFAULT_THEME);
 
-  const languageObject = LANGUAGES_VALUE_TO_OBJECT[values.language] || DEFAULT_LANGUAGE;
-
-  function handleAnyValueChange({
-    value: changedValue = values.value,
-    theme: changedTheme = values.theme,
-    language: changedLanguage = values.language,
-  }) {
-    const finalChangedValues = {
-      value: changedValue,
-      theme: changedTheme,
-      language: changedLanguage,
-    };
-
-    changeSetting(finalChangedValues);
-
-    setValues(finalChangedValues);
-  }
+  const languageObject = useMemo(
+    () => LANGUAGES_VALUE_TO_OBJECT[values.language] || DEFAULT_LANGUAGE, [values.language],
+  );
 
   useEffect(() => {
     if (!values.value) {
-      handleAnyValueChange({
+      setValues((prevState) => ({
+        ...prevState,
         value: languageObject.code,
-      });
+      }));
     }
   }, [values.language]);
+
+  useEffect(() => {
+    changeSetting(values);
+  }, [values]);
 
   function toggleCurrentTheme() {
     const newTheme = values.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT;
 
-    handleAnyValueChange({ theme: newTheme });
+    persistTheme(newTheme);
+
+    setTheme(newTheme);
   }
 
   function handleValueChange(newValue) {
-    handleAnyValueChange({ value: newValue });
+    setValues((prevState) => ({
+      ...prevState,
+      value: newValue,
+    }));
   }
 
   function handleLanguageChange(newLanguage) {
-    handleAnyValueChange({ language: newLanguage.value });
+    setValues((prevState) => ({
+      ...prevState,
+      language: newLanguage,
+    }));
   }
 
   return (
     <div className="flex flex-col h-full">
       <div className="flex-grow overflow-hidden">
         <Editor
+          theme={theme}
+          language={values.language}
           value={values.value}
           onValueChange={handleValueChange}
         />
@@ -80,14 +82,12 @@ export default function RouteResponse({
 }
 
 RouteResponse.propTypes = {
-  theme: PropTypes.string,
   language: PropTypes.string,
   value: PropTypes.string,
   changeSetting: PropTypes.func,
 };
 
 RouteResponse.defaultProps = {
-  theme: DEFAULT_THEME,
   language: DEFAULT_LANGUAGE.value,
   value: DEFAULT_LANGUAGE.code,
   changeSetting: () => {},
