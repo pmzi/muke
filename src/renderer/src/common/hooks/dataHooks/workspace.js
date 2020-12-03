@@ -1,5 +1,5 @@
 import { useMutation, useQuery, queryCache } from '@common/hooks/dataHandlerHooks';
-import { workspace } from '@/api';
+import { workspace } from '@/api/dispatch';
 import { GET_ALL_WORKSPACES, GET_WORKSPACE } from '@common/constants/queries';
 
 export function useAddWorkspace(options) {
