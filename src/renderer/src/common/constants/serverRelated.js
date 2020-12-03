@@ -3,3 +3,9 @@ export const workspaceState = {
   RUNNING: 'running',
   PAUSED: 'paused',
 };
+
+export const requestState = {
+  SUCCESS: 'success',
+  FAIL: 'fail',
+  PENDING: 'pending',
+};
