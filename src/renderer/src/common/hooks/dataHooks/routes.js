@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 import { useMutation, useQuery, queryCache } from '@common/hooks/dataHandlerHooks';
 import { routes } from '@/api';
-import { GET_ROUTES } from '@common/constants/queries';
+import { GET_ROUTES, GET_ROUTE } from '@common/constants/queries';
 
 export function useGetRoutes(id, options) {
   return useQuery(GET_ROUTES, () => routes.getAllRoutes(id), options);
@@ -67,4 +67,8 @@ export function useAddRouteGroup(options) {
     },
     ...options,
   });
+}
+
+export function useGetRoute(id, options) {
+  return useQuery([GET_ROUTE, id], () => routes.getRoute(id), options);
 }

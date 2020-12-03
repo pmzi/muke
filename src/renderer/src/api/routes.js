@@ -1,4 +1,4 @@
-// import { GET_ROUTES } from '@common/constants/queries';
+// import { GET_ROUTES } from '@common/constants/channels';
 // import dispatch from '@services/dispatch';
 
 function getAllRoutes() {
@@ -53,9 +53,26 @@ function addRouteGroup(label) {
   // return dispatch(CREATE_ROUTE_GROUP);
 }
 
+function getRoute(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({
+      id,
+      headers: [{ key: 'test', value: 'testContent' }],
+      response: { responseType: 'JSON', content: 'some json' },
+      method: 'post',
+      matchType: 'contains',
+      path: '/user/login',
+      matchWith: 'URL',
+      name: 'Login',
+    }), 2000);
+  });
+  // return dispatch(GET_ROUTE);
+}
+
 export default {
   getAllRoutes,
   changeRoutesOrders,
   addRoute,
   addRouteGroup,
+  getRoute,
 };
