@@ -1,24 +1,36 @@
 import React from 'react';
-
+import { useParams } from 'react-router-dom';
 import {
   Form, Input, Button,
 } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+
 import { required } from '@common/utilities/formValidations';
+import { useGetRoute } from '@common/hooks/dataHooks';
+import RouteHeadersSettingsLoading from './RouteHeadersSettingsLoading';
 
 export default function RouteHeadersSettings() {
+  const { routeId } = useParams();
+  const { isLoading, data } = useGetRoute(routeId);
+
+  if (isLoading) return <RouteHeadersSettingsLoading />;
+
   function onFinish(args) {
     console.log(args);
   }
+
+  const { headers } = data;
+  const initialValues = { headers };
+
   return (
-    <Form name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+    <Form name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off" initialValues={initialValues}>
       <Form.List name="headers">
         {(fields, { add, remove }) => (
           <div>
             {fields.map((field) => (
               <div key={field.key} className="flex items-center mb-6">
                 <Form.Item
-                  name={[field.name, 'headerName']}
+                  name={[field.name, 'key']}
                   fieldKey={[field.fieldKey, 'headerName']}
                   rules={[required('Header name is required!')]}
                   className="flex-grow mb-0 mr-4"
@@ -26,7 +38,7 @@ export default function RouteHeadersSettings() {
                   <Input placeholder="Header Name" />
                 </Form.Item>
                 <Form.Item
-                  name={[field.name, 'headerValue']}
+                  name={[field.name, 'value']}
                   fieldKey={[field.fieldKey, 'headerValue']}
                   rules={[required('Header value is required!')]}
                   className="flex-grow mb-0"
