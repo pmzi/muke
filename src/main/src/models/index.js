@@ -1,5 +1,4 @@
 const db = require('@src/services/db');
-const { IS_DEVELOPMENT } = require('@src/config');
 
 const Workspace = require('./Workspace');
 const RouteGroup = require('./RouteGroup');
@@ -22,5 +21,5 @@ exports.init = async function initialize() {
 
   RouteHeader.belongsTo(Route);
 
-  await db.sync({ force: IS_DEVELOPMENT });
+  await db.sync();
 };

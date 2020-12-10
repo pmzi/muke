@@ -8,8 +8,8 @@ import { workspaceState } from '@common/constants/serverRelated';
 export default function ServerAction({ serverStatus, startServer, pauseServer }) {
   const paused = serverStatus !== 'running';
   const actionIcon = paused
-    ? <CaretRightOutlined onClick={startServer} className="text-green-600 select-none text-3xl" />
-    : <PauseOutlined onClick={pauseServer} className="text-red-600 select-none text-3xl" />;
+    ? <CaretRightOutlined className="text-green-600 select-none text-3xl" />
+    : <PauseOutlined className="text-red-600 select-none text-3xl" />;
 
   function handleClick() {
     if (paused) startServer();

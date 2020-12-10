@@ -24,7 +24,7 @@ export function useGetWorkspaceInfo(id, options) {
 
 export function useDeleteWorkspace(options) {
   return useMutation(workspace.deleteWorkspace, {
-    onSuccess: (id) => {
+    onSuccess: (_, id) => {
       queryCache.setQueryData(
         GET_ALL_WORKSPACES,
         (oldData) => oldData.filter(({ id: wId }) => Number(id) !== wId),
@@ -42,7 +42,7 @@ export function useDeleteWorkspace(options) {
 
 export function useChangeWorkspaceState(options) {
   return useMutation(workspace.changeWorkspaceState, {
-    onSuccess: ({ id, state }) => {
+    onSuccess: (_, { id, state }) => {
       queryCache.setQueryData(
         [GET_WORKSPACE, id],
         (oldData) => ({

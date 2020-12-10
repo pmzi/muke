@@ -11,7 +11,7 @@ import ServerInfoModalList from './ServerInfoModalList';
 export default function ServerInfoModal({ show = false, onVisibilityChange }) {
   const { workspace } = useParams();
   const history = useHistory();
-  const [deleteWorkspace, { isLoading: isDeleting }] = useDeleteWorkspace(workspace);
+  const [deleteWorkspace, { isLoading: isDeleting }] = useDeleteWorkspace();
 
   function onCancel() {
     onVisibilityChange(false);
@@ -22,7 +22,7 @@ export default function ServerInfoModal({ show = false, onVisibilityChange }) {
   }
 
   function onDelete() {
-    deleteWorkspace().then(() => {
+    deleteWorkspace(workspace).then(() => {
       onVisibilityChange(false);
       history.push(HOME);
       notify.success('Workspace has been deleted!');

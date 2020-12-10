@@ -22,25 +22,19 @@ module.exports = {
   },
 
   async getWorkspaceInfo(id) {
-    const workspaceInfo = await Workspace.find({
-      where: {
-        id,
-      },
-    });
+    const workspaceInfo = await Workspace.findByPk(id, { raw: true });
 
     return workspaceInfo;
   },
 
   async editWorkspaceInfo({
-    id, name, address, port, proxy,
+    id, ...infoToEdit
   }) {
-    await Workspace.update({
-      name, address, port, proxy,
-    }, { where: { id } });
+    await Workspace.update(infoToEdit, { where: { id } });
   },
 
   async getAllWorkspaces() {
-    const allWorkspaces = await Workspace.findAll();
+    const allWorkspaces = await Workspace.findAll({ raw: true });
 
     return allWorkspaces;
   },

@@ -23,6 +23,11 @@ const Workspace = db.define('Workspace', {
   proxy: {
     type: DataTypes.STRING,
   },
+  state: {
+    type: DataTypes.TINYINT,
+    defaultValue: 0,
+    allowNull: false,
+  },
 }, {
   timestamps: false,
 });

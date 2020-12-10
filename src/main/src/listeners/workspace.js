@@ -24,20 +24,20 @@ module.exports = function registerListeners({ listen }) {
   listen(GET_WORKSPACE, async (res, { id }) => {
     const workspaceInfo = await workspaceController.getWorkspaceInfo(id);
 
-    res.success(workspaceInfo.toJSON());
+    res.success(workspaceInfo);
   });
 
   listen(GET_ALL_WORKSPACES, async (res) => {
     const workspaces = await workspaceController.getAllWorkspaces();
 
-    res.success(workspaces.toJSON());
+    res.success(workspaces);
   });
 
   listen(EDIT_WORKSPACE, async (res, {
-    id, name, address, port, proxy,
+    id, ...infoToEdit
   }) => {
     await workspaceController.editWorkspaceInfo({
-      id, name, address, port, proxy,
+      id, ...infoToEdit,
     });
 
     res.success();
